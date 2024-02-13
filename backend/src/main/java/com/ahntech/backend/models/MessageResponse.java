@@ -1,6 +1,6 @@
-package com.ahngroup.qrcode.models;
+package com.ahntech.backend.models;
 
-import com.ahngroup.qrcode.enums.CodeResponse;
+import com.ahntech.backend.enums.CodeResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,9 +1,9 @@
-package com.ahngroup.qrcode.controllers;
+package com.ahntech.backend.controllers;
 
-import com.ahngroup.qrcode.dtos.UserDto;
-import com.ahngroup.qrcode.entities.User;
-import com.ahngroup.qrcode.models.MessageResponse;
-import com.ahngroup.qrcode.services.UserService;
+import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.entities.User;
+import com.ahntech.backend.models.MessageResponse;
+import com.ahntech.backend.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

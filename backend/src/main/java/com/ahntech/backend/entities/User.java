@@ -1,7 +1,7 @@
-package com.ahngroup.qrcode.entities;
+package com.ahntech.backend.entities;
 
-import com.ahngroup.qrcode.dtos.UserDto;
-import com.ahngroup.qrcode.enums.AccountRole;
+import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.enums.AccountRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;

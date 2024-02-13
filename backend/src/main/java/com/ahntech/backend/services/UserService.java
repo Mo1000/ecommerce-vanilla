@@ -1,9 +1,9 @@
-package com.ahngroup.qrcode.services;
+package com.ahntech.backend.services;
 
 
-import com.ahngroup.qrcode.dtos.UserDto;
-import com.ahngroup.qrcode.entities.User;
-import com.ahngroup.qrcode.models.MessageResponse;
+import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.entities.User;
+import com.ahntech.backend.models.MessageResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

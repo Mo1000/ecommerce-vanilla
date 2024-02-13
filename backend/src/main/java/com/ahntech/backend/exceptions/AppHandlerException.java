@@ -1,6 +1,5 @@
-package com.ahngroup.qrcode.exceptions;
-
-import com.ahngroup.qrcode.helpers.CustomError;
+package com.ahntech.backend.exceptions;
+import com.ahntech.backend.helpers.CustomError;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.NonNull;

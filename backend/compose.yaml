@@ -5,10 +5,10 @@ services:
     container_name: mongodb_container
     image: mongo
     restart: always
-#    environment:
+      #    environment:
       #      MONGO_INITDB_ROOT_USERNAME: admin
-      #      MONGO_INITDB_ROOT_PASSWORD: admin-password
-#      MONGO_INITDB_DATABASE: qrcode
+    #      MONGO_INITDB_ROOT_PASSWORD: admin-password
+    #      MONGO_INITDB_DATABASE: qrcode
     volumes:
       - mongodb_data:/data/db
     ports:

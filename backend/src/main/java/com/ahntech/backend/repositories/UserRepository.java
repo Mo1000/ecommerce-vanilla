@@ -1,6 +1,6 @@
-package com.ahngroup.qrcode.repositories;
+package com.ahntech.backend.repositories;
 
-import com.ahngroup.qrcode.entities.User;
+import com.ahntech.backend.entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, String> {

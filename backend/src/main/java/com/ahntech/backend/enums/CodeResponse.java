@@ -1,4 +1,4 @@
-package com.ahngroup.qrcode.enums;
+package com.ahntech.backend.enums;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.ahngroup.qrcode.exceptions;
+package com.ahntech.backend.exceptions;
 
 
 public class RessourcesNotFoundException extends RuntimeException {

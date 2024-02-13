@@ -1,4 +1,4 @@
-package com.ahngroup.qrcode.helpers;
+package com.ahntech.backend.helpers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

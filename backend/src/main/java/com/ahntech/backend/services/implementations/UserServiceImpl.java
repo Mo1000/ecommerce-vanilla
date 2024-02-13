@@ -1,14 +1,14 @@
-package com.ahngroup.qrcode.services.implementations;
+package com.ahntech.backend.services.implementations;
 
-import com.ahngroup.qrcode.dtos.UserDto;
-import com.ahngroup.qrcode.entities.User;
-import com.ahngroup.qrcode.enums.CodeResponse;
-import com.ahngroup.qrcode.exceptions.BadRequestException;
-import com.ahngroup.qrcode.exceptions.RessourcesNotFoundException;
-import com.ahngroup.qrcode.exceptions.UnprocessableEntityException;
-import com.ahngroup.qrcode.models.MessageResponse;
-import com.ahngroup.qrcode.repositories.UserRepository;
-import com.ahngroup.qrcode.services.UserService;
+import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.entities.User;
+import com.ahntech.backend.enums.CodeResponse;
+import com.ahntech.backend.exceptions.BadRequestException;
+import com.ahntech.backend.exceptions.RessourcesNotFoundException;
+import com.ahntech.backend.exceptions.UnprocessableEntityException;
+import com.ahntech.backend.models.MessageResponse;
+import com.ahntech.backend.repositories.UserRepository;
+import com.ahntech.backend.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

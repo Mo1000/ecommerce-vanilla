@@ -1,4 +1,4 @@
-package com.ahngroup.qrcode.dtos;
+package com.ahntech.backend.dtos;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
