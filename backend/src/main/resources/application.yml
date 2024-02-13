@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-stacktrace: never
+spring:
+  #  devtools:
+  #    restart:
+  #      enabled: false
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: qrcode
+      auto-index-creation: on
+  main:
+    web-application-type: servlet
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: error
