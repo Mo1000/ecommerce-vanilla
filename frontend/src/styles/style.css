@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+
+
+    body {
+        font-family: poppins, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    input,
+    textarea,
+    input[type='text'] {
+        @apply focus-visible:outline-0 focus:outline-0 text-[16px];
+    }
+
+    /*h1 {*/
+    /*    font-size: 2em;*/
+    /*}*/
+    /*h2 {*/
+    /*    font-size: 1.5em;*/
+    /*}*/
+    /*h3 {*/
+    /*    font-size: 1.17em;*/
+    /*}*/
+    /*h5 {*/
+    /*    font-size: 0.83em;*/
+    /*}*/
+    /*h6 {*/
+    /*    font-size: 0.75em;*/
+    /*}*/
+    /*h1,*/
+    /*h2,*/
+    /*h3,*/
+    /*h4,*/
+    /*h5,*/
+    /*h6 {*/
+    /*    font-weight: bolder;*/
+    /*}*/
+    /*p {*/
+    /*    font-size: 1em;*/
+    /*}*/
+    button {
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+        background: #e1edfe;
+    }
+
+    a {
+        @apply bg-transparent decoration-0;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    /* ScrollBar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-2xl bg-blue-800/80;
+    }
+
+
+}

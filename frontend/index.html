@@ -1,18 +1,83 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link href="/vite.svg" rel="icon" type="image/svg+xml" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<head>
+    <meta charset="UTF-8"/>
+    <link href="/vite.svg" rel="icon" type="image/svg+xml"/>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Vite + TS</title>
-    <link href="src/styles/style.css" rel="stylesheet" />
-    <script defer src="src/scripts/index/main.ts" type="module"></script>
-  </head>
-  <body>
-    <div  id="app mx-5">
-      <button class="text-red-400 border  border-1 border-gray-700 px-2" id="counter">
-      </button>
+    <link href="src/styles/index.css" rel="stylesheet"/>
+
+    <script defer src="src/script/index/main.ts" type="module"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<!--    <div  id="app mx-5">-->
+<!--      <button class="text-red-400 border  border-1 border-gray-700 px-2" id="counter">-->
+<!--      </button>-->
+<!--    </div>-->
+<nav class="bg-white shadow sticky z-50 w-full">
+    <div class="mx-auto  px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        <div class="-ml-2 mr-2 flex items-center md:hidden">
+            <!-- Mobile menu button -->
+            <button aria-controls="mobile-menu" aria-expanded="false"
+                    class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    type="button">
+                <span class="absolute -inset-0.5"></span>
+                <span class="sr-only">Open main menu</span>
+                <!--
+                  Icon when menu is closed.
+
+                  Menu open: "hidden", Menu closed: "block"
+                -->
+                <svg aria-hidden="true" class="block h-6 w-6" fill="none" stroke="currentColor"
+                     stroke-width="1.5" viewBox="0 0 24 24">
+                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+                <!--
+                  Icon when menu is open.
+
+                  Menu open: "block", Menu closed: "hidden"
+                -->
+            </button>
+        </div>
+        <div class="font-bold text-2xl ">
+            Exclusive
+        </div>
+        <div class="hidden md:ml-6 md:flex md:space-x-8">
+            <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+            <a class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-3xl font-medium text-gray-900"
+               href="#">Home</a>
+            <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+               href="#">Contact</a>
+            <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+               href="#">About</a>
+            <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+               href="/login">Sign Up</a>
+        </div>
+
+        <div class="relative">
+            <div class="pointer-events-none absolute   inset-y-0 right-0 flex items-center pr-3">
+                <svg aria-hidden="true" class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path clip-rule="evenodd"
+                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                          fill-rule="evenodd"/>
+                </svg>
+            </div>
+            <label for="navSearch">
+                <input class="w-64 p-3 bg-gray-100 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
+                       id="navSearch"
+                       placeholder="What are you looking for?" type="search">
+            </label>
+        </div>
     </div>
 
-  </body>
+
+</nav>
+</body>
 </html>
