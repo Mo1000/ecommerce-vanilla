@@ -8,76 +8,252 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Vite + TS</title>
     <link href="src/styles/index.css" rel="stylesheet"/>
+    <script src="node_modules/flowbite/dist/flowbite.min.js"></script>
 
-    <script defer src="src/script/index/main.ts" type="module"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet">
+
+    <script defer src="src/scripts/index/main.ts" type="module"></script>
 </head>
 <body>
-<!--    <div  id="app mx-5">-->
-<!--      <button class="text-red-400 border  border-1 border-gray-700 px-2" id="counter">-->
-<!--      </button>-->
-<!--    </div>-->
-<nav class="bg-white shadow sticky z-50 w-full">
-    <div class="mx-auto  px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+<nav class="bg-white shadow sticky z-50 w-full ">
+    <div class="mx-auto  px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 xl:px-28">
         <div class="-ml-2 mr-2 flex items-center md:hidden">
-            <!-- Mobile menu button -->
             <button aria-controls="mobile-menu" aria-expanded="false"
                     class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                     type="button">
                 <span class="absolute -inset-0.5"></span>
                 <span class="sr-only">Open main menu</span>
-                <!--
-                  Icon when menu is closed.
-
-                  Menu open: "hidden", Menu closed: "block"
-                -->
                 <svg aria-hidden="true" class="block h-6 w-6" fill="none" stroke="currentColor"
                      stroke-width="1.5" viewBox="0 0 24 24">
                     <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
                           stroke-linejoin="round"/>
                 </svg>
-                <!--
-                  Icon when menu is open.
-
-                  Menu open: "block", Menu closed: "hidden"
-                -->
             </button>
         </div>
         <div class="font-bold text-2xl ">
-            Exclusive
+            <a href="/"> Exclusive</a>
         </div>
         <div class="hidden md:ml-6 md:flex md:space-x-8">
             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-            <a class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-3xl font-medium text-gray-900"
-               href="#">Home</a>
+            <a class="inline-flex  border-solid border-0 border-b-2 border-indigo-500 text-gray-900  items-center  px-1 pt-1  text-sm  font-medium "
+               href="/"
+            >Home</a>
             <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                href="#">Contact</a>
             <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                href="#">About</a>
             <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-               href="/login">Sign Up</a>
+               href="/register">Sign Up</a>
         </div>
 
         <div class="relative">
-            <div class="pointer-events-none absolute   inset-y-0 right-0 flex items-center pr-3">
-                <svg aria-hidden="true" class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path clip-rule="evenodd"
-                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                          fill-rule="evenodd"/>
-                </svg>
-            </div>
-            <label for="navSearch">
+            <!--            <div class="pointer-events-none absolute   inset-y-0 right-0 flex items-center pr-3">-->
+            <!--                <svg aria-hidden="true" class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">-->
+            <!--                    <path clip-rule="evenodd"-->
+            <!--                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"-->
+            <!--                          fill-rule="evenodd"/>-->
+            <!--                </svg>-->
+            <!--            </div>-->
+            <label for="nav-search">
                 <input class="w-64 p-3 bg-gray-100 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
-                       id="navSearch"
+                       id="nav-search"
                        placeholder="What are you looking for?" type="search">
             </label>
         </div>
     </div>
-
-
 </nav>
+<main class="xl:px-28">
+
+    <div class="grid grid-cols-4 gap-10">
+        <div class="col-span-1 relative  h-56  md:h-[450px]">
+
+            <button aria-controls="sidebar-multi-level-sidebar"
+                    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"
+                    type="button">
+                <span class="sr-only">Open sidebar</span>
+                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                          d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                          fill-rule="evenodd"></path>
+                </svg>
+            </button>
+
+            <aside aria-label="Sidebar"
+                   class="absolute top-0 left-0 z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0"
+                   id="sidebar-multi-level-sidebar">
+                <div class="h-full px-3 py-4 overflow-y-auto">
+                    <div class="space-y-2 font-medium">
+                        <div>
+                            <button aria-controls="dropdown-example"
+                                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                    data-collapse-toggle="dropdown-example" type="button">
+                                <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Woman’s Fashion</span>
+                                <svg aria-hidden="true" class="w-3 h-3" fill="none" viewBox="0 0 10 6"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
+                                          stroke-linejoin="round" stroke-width="2"/>
+                                </svg>
+                            </button>
+                            <ul class="hidden  pl-20 space-y-2 font-normal" id="dropdown-example">
+                                <li>
+                                    <a class="flex items-center w-full p-2  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Products</a>
+                                </li>
+                                <li>
+                                    <a class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Billing</a>
+                                </li>
+                                <li>
+                                    <a class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Invoice</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button aria-controls="dropdown-example-1"
+                                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                    data-collapse-toggle="dropdown-example-1" type="button">
+                                <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Men’s Fashion</span>
+                                <svg aria-hidden="true" class="w-3 h-3" fill="none" viewBox="0 0 10 6"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
+                                          stroke-linejoin="round" stroke-width="2"/>
+                                </svg>
+                            </button>
+                            <ul class="hidden  pl-20 space-y-2 font-normal" id="dropdown-example-1">
+                                <li>
+                                    <a class="flex items-center w-full p-2  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Products</a>
+                                </li>
+                                <li>
+                                    <a class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Billing</a>
+                                </li>
+                                <li>
+                                    <a class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                       href="#">Invoice</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Electronics</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Home & Lifestyle</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Medicine</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Sports & Outdoor</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Baby’s & Toys</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Groceries & Pets</span>
+                            </a>
+                        </div>
+
+                        <div>
+                            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                               href="#">
+                                <span class="flex-1 ms-3 whitespace-nowrap">Health & Beauty</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="col-span-3 py-14">
+            <div class="relative" data-carousel="slide" id="default-carousel">
+                <!-- Carousel wrapper -->
+                <div class="relative h-56 overflow-hidden rounded-lg md:h-[450px]">
+                    <!-- Item 1 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             src="/images/carousel-img.png">
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             src="/images/img_1.png">
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             src="/images/img_2.png">
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             src="/images/img.png">
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             src="/images/img_2.png">
+                    </div>
+                </div>
+                <!-- Slider indicators -->
+                <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                    <button aria-current="true" aria-label="Slide 1" class="w-3 h-3 rounded-full"
+                            data-carousel-slide-to="0"
+                            type="button"></button>
+                    <button aria-current="false" aria-label="Slide 2" class="w-3 h-3 rounded-full"
+                            data-carousel-slide-to="1" type="button"></button>
+                    <button aria-current="false" aria-label="Slide 3" class="w-3 h-3 rounded-full"
+                            data-carousel-slide-to="2" type="button"></button>
+                    <button aria-current="false" aria-label="Slide 4" class="w-3 h-3 rounded-full"
+                            data-carousel-slide-to="3" type="button"></button>
+                    <button aria-current="false" aria-label="Slide 5" class="w-3 h-3 rounded-full"
+                            data-carousel-slide-to="4" type="button"></button>
+                </div>
+                <!-- Slider controls -->
+<!--                <button class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"-->
+<!--                        data-carousel-prev type="button">-->
+<!--        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">-->
+<!--            <svg aria-hidden="true" class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" fill="none"-->
+<!--                 viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="M5 1 1 5l4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                      stroke-width="2"/>-->
+<!--            </svg>-->
+<!--            <span class="sr-only">Previous</span>-->
+<!--        </span>-->
+<!--                </button>-->
+<!--                <button class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"-->
+<!--                        data-carousel-next type="button">-->
+<!--        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">-->
+<!--            <svg aria-hidden="true" class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" fill="none"-->
+<!--                 viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                      stroke-width="2"/>-->
+<!--            </svg>-->
+<!--            <span class="sr-only">Next</span>-->
+<!--        </span>-->
+<!--                </button>-->
+            </div>
+        </div>
+    </div>
+
+</main>
 </body>
 </html>

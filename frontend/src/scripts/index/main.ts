@@ -18,6 +18,9 @@
 //   </div>
 // `
 
-import {setupCounter} from "./counter.ts";
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+import {handleSearch} from "@/scripts/globals.ts";
+
+
+handleSearch()
+// setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
