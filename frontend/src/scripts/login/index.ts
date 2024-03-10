@@ -1,4 +1,4 @@
-import {handleSearch} from "@/scripts/globals.ts";
+
 
 function handleLoginForm() {
     const form = document.getElementById("login-form") as HTMLFormElement;
@@ -11,5 +11,6 @@ function handleLoginForm() {
 }
 
 
-handleSearch()
+
+
 handleLoginForm();
