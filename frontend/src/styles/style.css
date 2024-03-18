@@ -11,6 +11,12 @@
         font-family: poppins, sans-serif;
         margin: 0;
         padding: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        scroll-behavior: smooth;
+    }
+
+    main {
+        @apply py-10;
     }
 
     input,
@@ -19,32 +25,6 @@
         @apply focus-visible:outline-0 focus:outline-0 text-[16px];
     }
 
-    /*h1 {*/
-    /*    font-size: 2em;*/
-    /*}*/
-    /*h2 {*/
-    /*    font-size: 1.5em;*/
-    /*}*/
-    /*h3 {*/
-    /*    font-size: 1.17em;*/
-    /*}*/
-    /*h5 {*/
-    /*    font-size: 0.83em;*/
-    /*}*/
-    /*h6 {*/
-    /*    font-size: 0.75em;*/
-    /*}*/
-    /*h1,*/
-    /*h2,*/
-    /*h3,*/
-    /*h4,*/
-    /*h5,*/
-    /*h6 {*/
-    /*    font-weight: bolder;*/
-    /*}*/
-    /*p {*/
-    /*    font-size: 1em;*/
-    /*}*/
     button {
         cursor: pointer;
         border: none;
@@ -78,7 +58,47 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        @apply rounded-2xl bg-blue-800/80;
+        @apply rounded-2xl bg-red-600/80;
+    }
+
+
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    /* ScrollBar */
+    .scrollbar::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        @apply bg-transparent;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+        @apply rounded-2xl bg-red-600/80;
     }
 
 

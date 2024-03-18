@@ -2,7 +2,6 @@ export async function fetchJson(url: string, options: {
     header?: Record<string, string>,
     [key: string]: any,
 } = {}) {
-
    try {
         const response = await fetch(url, {
             headers: {
