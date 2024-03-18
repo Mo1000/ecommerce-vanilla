@@ -1,65 +1,139 @@
-import {CardDataModel} from "@/models/card.model.ts";
 import {CardList} from "@/classes/card/CardList.ts";
+import {createSVGElement} from "@/scripts/globals.ts";
+import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";
+import {CategoriesList} from "@/classes/category/categoriesList.ts";
+import {signal} from "@preact/signals-core";
+import {categories, listOfTodaySection} from "@/constants/data.ts";
 
-function addCardInTodaySales() {
-    const todaySales = document.getElementById('today-sales');
-    const divCardContainer = todaySales?.querySelector('#today-sales-card') as HTMLElement
-    const cardDataList: CardDataModel[] = [
-        {
-            title: "HAVIT HV-G92 Gamepad",
-            finalPrice: 120,
-            previousPrice: 150,
-            image: "/images/card/img.png",
-            reductionPrice: 40,
-            stars: {
-                number: 88,
-                total: 5
-            }
+function handleScroll(scrollElement: HTMLElement, controlLeft: HTMLElement, controlRight: HTMLElement) {
 
-        },
-        {
-            title: "AK-900 Wired Keyboard",
-            finalPrice: 960,
-            previousPrice: 1160,
-            image: "/images/card/img_1.png",
-            reductionPrice: 35,
-            stars: {
-                number: 75,
-                total: 4
-            }
+    const showLeftControl = signal(false);
+    const showRightControl = signal(true);
+    const widthWindow = window.matchMedia('(min-width:720px)')
 
-        },
-        {
-            title: "IPS LCD Gaming Monitor",
-            finalPrice: 370,
-            previousPrice: 400,
-            image: "/images/card/img_2.png",
-            reductionPrice: 30,
-            stars: {
-                number: 99,
-                total: 5
-            }
+    const onScroll = () => {
+        if (scrollElement && widthWindow.matches) {
+            const {scrollLeft, scrollWidth, clientWidth} = scrollElement;
+            const isNearEnd = scrollLeft + clientWidth >= scrollWidth;
+            showRightControl.value = scrollLeft==0?true:!isNearEnd;
 
-        },
-        {
-            title: "S-Series Comfort Chair ",
-            finalPrice: 375,
-            previousPrice: 400,
-            image: "/images/card/img_3.png",
-            reductionPrice: 25,
-            stars: {
-                number: 99,
-                total: 5
-            }
+            showLeftControl.value = scrollLeft !== 0;
 
         }
+    };
 
-    ]
 
-    const cardList = new CardList(cardDataList)
-    cardList.appendTo(divCardContainer)
+    showRightControl.subscribe((value) => {
+        if (value) {
+            controlRight.classList.remove('hidden')
+        } else {
+            controlRight.classList.add('hidden')
+        }
+    })
+
+    showLeftControl.subscribe((value) => {
+        if (value) {
+            controlLeft.classList.remove('hidden')
+        } else {
+            controlLeft.classList.add('hidden')
+        }
+    })
+
+    // run it at mounting once
+    onScroll();
+
+    scrollElement.addEventListener('scrollend', onScroll);
+
+
+    const scrollByClick = (isLeft: boolean) => {
+        if (isLeft) {
+            scrollElement.scrollBy({
+                top: 0,
+                left: -600,
+                behavior: 'smooth',
+            });
+        } else {
+            scrollElement.scrollBy({
+                top: 0,
+                left: 600,
+                behavior: 'smooth',
+            });
+        }
+    };
+    controlLeft.addEventListener('click', () => {
+        scrollByClick(true)
+    })
+
+    controlRight.addEventListener('click', () => {
+        scrollByClick(false)
+    })
+
 
 }
 
+function renderTodaySales() {
+    const todaySales = document.getElementById('today-sales');
 
-addCardInTodaySales()
+    // Add the SVG element to the control-left
+    const controlLeft = todaySales?.querySelector('#control-left') as HTMLElement
+    controlLeft.appendChild(createSVGElement(FaArrowLeft))
+
+    // Add the SVG element to the control-right
+    const controlRight = todaySales?.querySelector('#control-right') as HTMLElement
+    controlRight.appendChild(createSVGElement(FaArrowRight))
+
+    // Add the card in the today sales
+    const divCardContainer = todaySales?.querySelector('#today-sales-card') as HTMLElement
+    divCardContainer.className = "flex flex-row md:gap-10 gap-10 w-full overflow-x-scroll md:overflow-hidden items-center px-4"
+
+    handleScroll(divCardContainer, controlLeft, controlRight)
+
+
+
+
+    const cardList = new CardList(listOfTodaySection)
+    cardList.appendTo(divCardContainer)
+
+
+}
+
+function displayCategories() {
+    const categoriesSection = document.getElementById('categories-section') as HTMLElement
+
+    // Add the SVG element to the control-left
+    const controlLeft = categoriesSection?.querySelector('#control-left-categories') as HTMLElement
+    controlLeft.appendChild(createSVGElement(FaArrowLeft))
+
+    // Add the SVG element to the control-right
+    const controlRight = categoriesSection?.querySelector('#control-right-categories') as HTMLButtonElement
+    controlRight.appendChild(createSVGElement(FaArrowRight))
+    controlRight.classList.add("hidden")
+
+    const categoriesListContainer = categoriesSection.querySelector('#categories-list') as HTMLElement
+
+    handleScroll(categoriesListContainer, controlLeft, controlRight)
+
+
+
+    const categoriesElement = new CategoriesList(categories)
+
+    categoriesElement.appendTo(categoriesListContainer)
+
+
+}
+
+function renderCurrentMonthSection() {
+    const currentMonth = document.getElementById('current-month-section');
+
+
+    // Add the card in the today sales
+    const divCardContainer = currentMonth?.querySelector('#current-month-list') as HTMLElement
+
+
+    const cardList = new CardList(listOfTodaySection.slice(0, 4))
+    cardList.appendTo(divCardContainer)
+}
+
+renderTodaySales()
+displayCategories()
+renderCurrentMonthSection()

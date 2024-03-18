@@ -353,32 +353,104 @@
                 <div class="bg-red-600 w-4 h-7 rounded"></div>
                 <span class="font-semibold text-red-500 text-sm">Today's</span>
             </div>
-            <div>
-                <div class="flex gap-5 pb-10">
+            <div class="flex flex-col gap-10">
+                <div class="flex gap-5  justify-between items-center">
                     <div class="font-semibold text-2xl">Flash Sales</div>
+                    <div class="flex gap-3 items-center" id="control-center">
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-left"></button>
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-right"></button>
+                    </div>
                 </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center" id="today-sales-card">
+                <div id="today-sales-card"></div>
+                <div class="w-full flex items-center justify-center">
+                    <button class="bg-red-500 px-7 py-4 rounded text-white text-base hover:bg-red-600">
+                        View All Products
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="w-full h-[1px] bg-gray-300 mt-20"></div>
+    </section>
+
+
+    <section class="my-20" id="categories-section">
+        <div class="space-y-5">
+            <div class="flex gap-4 items-center">
+                <div class="bg-red-600 w-4 h-7 rounded"></div>
+                <span class="font-semibold text-red-500 text-sm">Categories</span>
+            </div>
+            <div class="flex flex-col gap-10">
+                <div class="flex gap-5  justify-between items-center">
+                    <div class="font-semibold text-2xl">Browse By Category</div>
+                    <div class="flex gap-3 items-center" id="control-center-categories">
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-left-categories"></button>
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-right-categories"></button>
+                    </div>
+                </div>
+                <div class="flex gap-6 mt-10 justify-between"
+                     id="categories-list">
+
 
                 </div>
 
             </div>
         </div>
+        <div class="w-full h-[1px] bg-gray-300 mt-20 "></div>
     </section>
 
+    <section class="my-20" id="current-month-section">
+        <div class="space-y-5">
+            <div class="flex gap-4 items-center">
+                <div class="bg-red-600 w-4 h-7 rounded"></div>
+                <span class="font-semibold text-red-500 text-sm">This Month</span>
+            </div>
+            <div class="flex flex-col gap-10">
+                <div class="flex gap-5  justify-between items-center">
+                    <div class="font-semibold text-2xl">Best Selling Products</div>
+                    <button class="bg-red-500 px-8 py-3 rounded text-white text-base hover:bg-red-600">
+                        View All
+                    </button>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+                     id="current-month-list">
 
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+
+    <section class="mt-20 py-10" id="display-advertising">
+
+        <div class="w-full bg-black h-[450px] flex justify-between items-center px-10">
+            <div>d</div>
+            <picture class="bg-gradient-to-l from-transparent  to-transparent   via-gray-400/40  h-full flex items-center">
+                <img alt="j" height="300" src="/images/displaying/jbl.png" width="400">
+            </picture>
+        </div>
+
+    </section>
 
 
     <template id="sales-card-template">
         <div>
-            <div class="card-icons-img h-[250px] w-[270px] bg-gray-100 flex items-center justify-center relative"  >
+            <div class="card-icons-img h-[250px] w-[270px] bg-gray-100 flex items-center justify-center relative">
                 <div class="absolute  right-2 top-3 space-y-3 z-10">
-                    <div class="heart-icon bg-white rounded-full w-8 h-8 flex justify-center items-center" >
+                    <div class="heart-icon bg-white rounded-full w-8 h-8 flex justify-center items-center">
                     </div>
 
-                    <div class="eye-icon bg-white rounded-full w-8 h-8 flex justify-center items-center" >
+                    <div class="eye-icon bg-white rounded-full w-8 h-8 flex justify-center items-center">
                     </div>
                 </div>
-                <div class="reduction-price absolute left-2 top-3 rounded px-3 py-1 bg-red-500 text-white text-sm" >
+                <div class="reduction-price absolute left-2 top-3 rounded px-3 py-1 bg-red-500 text-white text-sm">
                 </div>
 
                 <div class="add-to-card-section absolute bottom-0 hidden w-full h-11 bg-black text-white text-xl hover:text-red-500 justify-center items-center ">
@@ -386,16 +458,16 @@
                 </div>
 
             </div>
-            <div class="text-price-Container space-y-3 mt-4" >
-                <div class="text-card text-base" ></div>
+            <div class="text-price-Container space-y-3 mt-4">
+                <div class="text-card text-base"></div>
                 <div class="flex gap-3">
-                    <span class="final-price-card text-red-500" ></span>
-                    <span class="previous-price-card line-through text-gray-400" ></span>
+                    <span class="final-price-card text-red-500"></span>
+                    <span class="previous-price-card line-through text-gray-400"></span>
                 </div>
-                <div class="star-container flex gap-2" >
+                <div class="star-container flex gap-2">
                     <picture class="flex gap-2">
                     </picture>
-                    <span class="text-gray-400" ></span>
+                    <span class="text-gray-400"></span>
                 </div>
             </div>
         </div>
