@@ -4,6 +4,7 @@ import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";
 import {CategoriesList} from "@/classes/category/categoriesList.ts";
 import {signal} from "@preact/signals-core";
 import {categories, listOfTodaySection} from "@/constants/data.ts";
+import {createElement} from "@/functions/dom.ts";
 
 function handleScroll(scrollElement: HTMLElement, controlLeft: HTMLElement, controlRight: HTMLElement) {
 
@@ -134,6 +135,59 @@ function renderCurrentMonthSection() {
     cardList.appendTo(divCardContainer)
 }
 
+function renderAdvertising() {
+    const advertising = document.getElementById('advertising-section');
+
+    const textArticleAdvertising = advertising?.querySelector('#text-article-advertising ') as HTMLElement
+    textArticleAdvertising.innerText = "Enhance Your Music Experience"
+
+
+    const imgArticleAdvertising = advertising?.querySelector('#img-article-advertising ') as HTMLElement
+    imgArticleAdvertising.appendChild(
+        createElement("img",{
+            src:"/images/displaying/jbl.png",
+            alt:"jbl",
+            width:"600",
+            class:"pl-10 pr-5",
+            height:"350"
+        })
+    )
+
+    const timeArticleAdvertising=advertising?.querySelector('#time-article-advertising ') as HTMLElement
+    const dataTime=[
+        {
+            time:"05",
+            period:"Days"
+        },
+
+        {
+            time:"23",
+            period:"Hours"
+        },
+        {
+            time:"59",
+            period:"Minutes"
+        },
+        {
+            time:"59",
+            period:"Seconds"
+        }
+    ]
+    dataTime.forEach((data)=>{
+        const divTime=createElement("div",{
+            class:"bg-white rounded-full w-[75px] h-[75px] text-sm flex flex-col items-center justify-center text-black "
+        })
+        divTime.appendChild(createElement("span",{
+            class:"font-semibold"
+        },data.time))
+        divTime.appendChild(createElement("span",{},data.period))
+        timeArticleAdvertising.appendChild(divTime)
+    })
+}
+
+
+
 renderTodaySales()
 displayCategories()
 renderCurrentMonthSection()
+renderAdvertising()
