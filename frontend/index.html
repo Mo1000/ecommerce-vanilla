@@ -19,6 +19,8 @@
 </head>
 <body>
 <main class="px-5 xl:px-28 space-y-20">
+
+    <!--    Article Section-->
     <section class="grid grid-cols-4 gap-10">
         <div class="col-span-1 relative h-72 md:h-[500px]">
             <button
@@ -347,6 +349,7 @@
     </section>
 
 
+    <!-- Today sales section -->
     <section id="today-sales">
         <div class="space-y-5">
             <div class="flex gap-4 items-center">
@@ -376,6 +379,7 @@
     </section>
 
 
+    <!--    Categories section-->
     <section class="my-20" id="categories-section">
         <div class="space-y-5">
             <div class="flex gap-4 items-center">
@@ -403,6 +407,8 @@
         <div class="w-full h-[1px] bg-gray-300 mt-20 "></div>
     </section>
 
+
+    <!--Current Month Section-->
     <section class="my-20" id="current-month-section">
         <div class="space-y-5">
             <div class="flex gap-4 items-center">
@@ -428,6 +434,8 @@
 
     </section>
 
+
+    <!--    Advertisement Section-->
     <section class="mt-20 py-10" id="advertising-section">
 
         <div class="w-full bg-black h-[450px] flex justify-between items-center pl-10">
@@ -450,6 +458,81 @@
     </section>
 
 
+    <!--    Exploration Section-->
+    <section class="my-20" id="exploration-section">
+        <div class="space-y-5">
+            <div class="flex gap-4 items-center">
+                <div class="bg-red-600 w-4 h-7 rounded"></div>
+                <span class="font-semibold text-red-500 text-sm">Our Products</span>
+            </div>
+            <div class="flex flex-col gap-10">
+                <div class="flex gap-5  justify-between items-center">
+                    <div class="font-semibold text-2xl">Explore Our Products</div>
+                    <div class="flex gap-3 items-center" id="control-center-exploration">
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-left-exploration"></button>
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                                id="control-right-exploration"></button>
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+                     id="exploration-list">
+                </div>
+                <div class="w-full flex items-center justify-center">
+                    <button class="bg-red-500 px-7 py-4 rounded text-white text-base hover:bg-red-600">
+                        View All Products
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!--    New arrivals -->
+    <section class="my-20" id="new-arrivals-section">
+        <div class="space-y-5">
+            <div class="flex gap-4 items-center">
+                <div class="bg-red-600 w-4 h-7 rounded"></div>
+                <span class="font-semibold text-red-500 text-sm">Featured</span>
+            </div>
+            <div class="flex flex-col gap-10">
+                <div class="flex gap-5  justify-between items-center">
+                    <div class="font-semibold text-2xl">New Arrival</div>
+
+                </div>
+                <div class="grid grid-cols-2 gap-7 justify-items-center"
+                     id="new-arrivals-list">
+
+                    <button class="w-full h-[500px] lg:h-[600px]"
+                         style="background: url('public/images/new_arrival/ps5.svg') center center no-repeat; background-size:cover;  ">
+                    </button>
+
+                    <div class="w-full flex flex-col gap-7">
+                        <button class="w-full h-1/2"
+                             style="background: url('public/images/new_arrival/woman.png') center center no-repeat; background-size:cover;  ">
+                        </button>
+                        <div class="w-full h-1/2 flex  gap-7">
+                            <button class="w-1/2 h-full "
+                                 style="background: url('public/images/new_arrival/enceinte.svg') center center no-repeat; background-size:cover;  ">
+                            </button>
+
+                            <button class="w-1/2 h-full"
+                                 style="background: url('public/images/new_arrival/parfum.svg') center center no-repeat; background-size:cover;  ">
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+    <!--    Template for card-->
     <template id="sales-card-template">
         <div>
             <div class="card-icons-img h-[250px] w-[270px] bg-gray-100 flex items-center justify-center relative">
@@ -468,7 +551,7 @@
                 </div>
 
             </div>
-            <div class="text-price-Container space-y-3 mt-4">
+            <div class="text-price-Container space-y-3 my-4">
                 <div class="text-card text-base"></div>
                 <div class="flex gap-3">
                     <span class="final-price-card text-red-500"></span>

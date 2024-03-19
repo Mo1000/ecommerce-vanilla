@@ -84,8 +84,13 @@ export class CardItem {
         eyeIconContainer.appendChild(eyeIcon)
 
         const reductionPrice = contentIconsAndImg.querySelector('.reduction-price') as HTMLElement
-        reductionPrice.innerHTML = `-${this._cardData.reductionPrice}%`
 
+       if(this._cardData?.reductionPrice && this._cardData.reductionPrice !== 0){
+           reductionPrice.innerHTML = `-${this._cardData.reductionPrice}%`
+       }
+       else {
+           reductionPrice.remove()
+       }
 
         //img
         const imgCard = createElement("img", {
@@ -108,8 +113,12 @@ export class CardItem {
         finalPrice.innerText = `$${this._cardData.finalPrice}`
 
         const previousPrice = textAndPriceContainer.querySelector('.previous-price-card') as HTMLElement
-        previousPrice.innerText = `$${this._cardData.previousPrice}`
-
+        if(this._cardData?.previousPrice  && this._cardData.previousPrice !== 0){
+             previousPrice.innerText = `$${this._cardData.previousPrice}`
+        }
+        else {
+            previousPrice.remove()
+        }
 
         // stars
         const starContainer = this._card.querySelector('.star-container') as HTMLElement
@@ -127,5 +136,20 @@ export class CardItem {
         // Add text stars
         const textStars = starContainer.querySelector("span") as HTMLElement
         textStars.innerText = `(${this._cardData.stars.number})`
+
+        if(this._cardData?.colorList && this._cardData.colorList.length!==0){
+            const colorList=createElement('div',{
+                class:"flex gap-2 items-center"
+            })
+
+            this._cardData.colorList.forEach((color)=>{
+                colorList.appendChild(createElement('div',{
+                    class:"w-5 h-5 rounded-full hover:ring-2 ring-black  cursor-pointer ",
+                    style:`background-color:${color}`
+                }))
+            })
+
+            textAndPriceContainer.appendChild(colorList)
+        }
     }
 }

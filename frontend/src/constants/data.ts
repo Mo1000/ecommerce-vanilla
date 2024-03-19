@@ -102,7 +102,103 @@ export const listOfTodaySection: CardDataModel[] = [
     }
 
 ]
-export     const categories: CategoryModel[] = [
+
+export const advertisingData: CardDataModel[] = [
+    {
+        title: "Breed Dry Dog Food",
+        finalPrice: 100,
+        image: "/images/advertising/dog_food.svg",
+        stars: {
+            number: 35,
+            total: 3
+        }
+
+    }, {
+        title: "CANON EOS DSLR Camera",
+        finalPrice: 360,
+        image: "/images/advertising/camera.svg",
+        stars: {
+            number: 95,
+            total: 4
+        }
+
+    }, {
+        title: "LENOVO IDEAPAD 3 Gaming Laptop",
+        finalPrice: 700,
+        image: "/images/advertising/lenovo_ideapad.svg",
+        stars: {
+            number: 325,
+            total: 5
+        }
+
+    }, {
+        title: "Curology Product Set ",
+        finalPrice: 500,
+        image: "/images/advertising/product.svg",
+        stars: {
+            number: 145,
+            total: 4
+        }
+
+    }, {
+        title: "Kids Electric Car",
+        finalPrice: 960,
+        image: "/images/advertising/electric_car.svg",
+        stars: {
+            number: 65,
+            total: 5
+        },
+        colorList:[
+            "red",
+            "blue",
+            "yellow",
+        ]
+
+    }, {
+        title: "Jr. Zoom Soccer Cleats",
+        finalPrice: 1160,
+        image: "/images/advertising/soccer_cleats.svg",
+        stars: {
+            number: 35,
+            total: 5
+        },
+        colorList:[
+            "red",
+            "blue",
+            "yellow",
+        ]
+    }, {
+        title: "GP11 Shooter USB Gamepad",
+        finalPrice: 660,
+        image: "/images/advertising/gamepad.svg",
+        stars: {
+            number: 55,
+            total: 4
+        },
+        colorList:[
+            "red",
+            "blue",
+            "yellow",
+        ]
+
+    }, {
+        title: "Quilted Satin Jacket",
+        finalPrice: 660,
+        image: "/images/advertising/jacket.svg",
+        stars: {
+            number: 55,
+            total: 4
+        },
+       colorList:[
+          "red",
+            "blue",
+            "yellow",
+       ]
+
+    }
+
+]
+export const categories: CategoryModel[] = [
 
     {
         img: "/images/categories/phone.png",
@@ -131,3 +227,5 @@ export     const categories: CategoryModel[] = [
         title: "Gaming"
     }
 ]
+
+

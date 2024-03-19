@@ -3,7 +3,7 @@ import {createSVGElement} from "@/scripts/globals.ts";
 import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";
 import {CategoriesList} from "@/classes/category/categoriesList.ts";
 import {signal} from "@preact/signals-core";
-import {categories, listOfTodaySection} from "@/constants/data.ts";
+import {advertisingData, categories, listOfTodaySection} from "@/constants/data.ts";
 import {createElement} from "@/functions/dom.ts";
 
 function handleScroll(scrollElement: HTMLElement, controlLeft: HTMLElement, controlRight: HTMLElement) {
@@ -186,8 +186,30 @@ function renderAdvertising() {
 }
 
 
+function renderExplorationSection() {
 
+    const explorationSection = document.getElementById('exploration-section');
+
+    // Add the SVG element to the control-left
+    const controlLeft = explorationSection?.querySelector('#control-left-exploration') as HTMLElement
+    controlLeft.remove()
+
+    // Add the SVG element to the control-right
+    const controlRight = explorationSection?.querySelector('#control-right-exploration') as HTMLElement
+    controlRight.appendChild(createSVGElement(FaArrowRight))
+    controlRight.setAttribute("disabled", "")
+
+    // Add the card in the today sales
+    const explorationContainer = explorationSection?.querySelector('#exploration-list') as HTMLElement
+
+
+
+
+    const cardList = new CardList(advertisingData)
+    cardList.appendTo(explorationContainer)
+}
 renderTodaySales()
 displayCategories()
 renderCurrentMonthSection()
 renderAdvertising()
+renderExplorationSection()
