@@ -1,26 +1,25 @@
-import {createElement} from "@/functions/dom.ts";
+import {cloneTemplate, createElement} from "@/functions/dom.ts";
 
 const addNav = async () => {
   const html = await fetch("src/components/_navbar.html").then((data) =>
     data.text()
   );
-  const contentNav = html.slice(
-    html.indexOf(
-      "<div class='mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 xl:px-28'>"
-    )
-  );
-  const nav = createElement("nav", {
-    class: "bg-white shadow sticky z-50 w-full",
-  });
-  nav.innerHTML = contentNav;
+
+
+  const templateContainer = createElement("div");
+    templateContainer.innerHTML = html;
+  const template = cloneTemplate("nav-template", templateContainer);
   const body = document.querySelector("body");
-  body?.prepend(nav);
+  body?.prepend(template);
 };
 
 function handleSearchInNav() {
-  const searchInput = document.getElementById("nav-search") as HTMLInputElement;
-  searchInput.addEventListener("input", () => {
-    console.log(searchInput.value);
+  const searchForm = document.getElementById("nav-search") as HTMLFormElement;
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const formData = new FormData(searchForm);
+    const data = Object.fromEntries(formData);
+    console.log(data)
   });
 }
 

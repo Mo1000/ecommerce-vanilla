@@ -144,7 +144,7 @@ export class CardItem {
 
             this._cardData.colorList.forEach((color)=>{
                 colorList.appendChild(createElement('div',{
-                    class:"w-5 h-5 rounded-full hover:ring-2 ring-black  cursor-pointer ",
+                    class:"w-4 h-4 rounded-full hover:ring-1 ring-black  cursor-pointer ",
                     style:`background-color:${color}`
                 }))
             })

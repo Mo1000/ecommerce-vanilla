@@ -8,13 +8,14 @@
             name="viewport"
     />
     <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-    <title>Vite + TS</title>
+    <title>Home</title>
     <link href="src/styles/index.css" rel="stylesheet"/>
     <script
             src="node_modules/flowbite/dist/flowbite.min.js"
             type="module"
     ></script>
     <script src="./src/scripts/nav/index.ts" type="module"></script>
+    <script src="./src/scripts/footer/index.ts" type="module"></script>
     <script defer src="src/scripts/index/main.ts" type="module"></script>
 </head>
 <body>
@@ -450,7 +451,7 @@
             <picture
                     class="img-advertising h-full flex items-center bg-clip-content to-black bg-gradient-to-r from-black"
                     id="img-article-advertising"
-                    style="background: url('public/images/displaying/ellipse.svg')  center no-repeat  ; background-size:cover;"
+                    style="background: url('/images/displaying/ellipse.svg')  center no-repeat  ; background-size:cover;"
             >
             </picture>
         </div>
@@ -459,7 +460,7 @@
 
 
     <!--    Exploration Section-->
-    <section class="my-20" id="exploration-section">
+    <section class="py-10" id="exploration-section">
         <div class="space-y-5">
             <div class="flex gap-4 items-center">
                 <div class="bg-red-600 w-4 h-7 rounded"></div>
@@ -469,7 +470,7 @@
                 <div class="flex gap-5  justify-between items-center">
                     <div class="font-semibold text-2xl">Explore Our Products</div>
                     <div class="flex gap-3 items-center" id="control-center-exploration">
-                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
+                        <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300 "
                                 id="control-left-exploration"></button>
                         <button class="bg-gray-100 flex justify-center items-center w-10 h-10 rounded-full hover:bg-gray-300"
                                 id="control-right-exploration"></button>
@@ -491,7 +492,7 @@
 
 
     <!--    New arrivals -->
-    <section class="my-20" id="new-arrivals-section">
+    <section class="py-10" id="new-arrivals-section">
         <div class="space-y-5">
             <div class="flex gap-4 items-center">
                 <div class="bg-red-600 w-4 h-7 rounded"></div>
@@ -505,22 +506,26 @@
                 <div class="grid grid-cols-2 gap-7 justify-items-center"
                      id="new-arrivals-list">
 
-                    <button class="w-full h-[500px] lg:h-[600px]"
-                         style="background: url('public/images/new_arrival/ps5.svg') center center no-repeat; background-size:cover;  ">
-                    </button>
+                    <div class="w-full h-[500px] lg:h-[600px] flex items-end bg-cover bg-cover "
+                         id="side-new-arrivals-1"
+                         style="background: url('/images/new_arrival/ps5.svg') center center no-repeat; background-size:cover;  ">
+                    </div>
 
                     <div class="w-full flex flex-col gap-7">
-                        <button class="w-full h-1/2"
-                             style="background: url('public/images/new_arrival/woman.png') center center no-repeat; background-size:cover;  ">
-                        </button>
+                        <div class="w-full h-1/2 flex items-end"
+                             id="side-new-arrivals-2"
+                             style="background: url('/images/new_arrival/woman.png') center center no-repeat; background-size:cover;  ">
+                        </div>
                         <div class="w-full h-1/2 flex  gap-7">
-                            <button class="w-1/2 h-full "
-                                 style="background: url('public/images/new_arrival/enceinte.svg') center center no-repeat; background-size:cover;  ">
-                            </button>
+                            <div class="w-1/2 h-full flex items-end "
+                                 id="side-new-arrivals-3"
+                                 style="background: url('/images/new_arrival/enceinte.svg') center center no-repeat; background-size:cover;  ">
+                            </div>
 
-                            <button class="w-1/2 h-full"
-                                 style="background: url('public/images/new_arrival/parfum.svg') center center no-repeat; background-size:cover;  ">
-                            </button>
+                            <div class="w-1/2 h-full flex items-end"
+                                 id="side-new-arrivals-4"
+                                 style="background: url('/images/new_arrival/parfum.svg') center center no-repeat; background-size:cover;  ">
+                            </div>
                         </div>
                     </div>
 
@@ -531,6 +536,41 @@
             </div>
         </div>
 
+    </section>
+
+
+    <!--    Options-->
+    <section class="w-full flex items-center justify-center gap-20 py-20">
+
+        <div class="flex flex-col gap-5 items-center">
+            <div class="bg-gray-400 rounded-full h-20 w-20 flex items-center justify-center ">
+                <div class="bg-black rounded-full h-16 w-16 flex items-center justify-center">
+                    <img alt="icon-delivery" class="h-12 w-12" src="/images/options/icon-delivery.svg">
+                </div>
+            </div>
+            <span class="font-semibold">FREE AND FAST DELIVERY</span>
+            <span>Free delivery for all orders over $140</span>
+        </div>
+
+        <div class="flex flex-col gap-5 items-center">
+            <div class="bg-gray-400 rounded-full h-20 w-20 flex items-center justify-center ">
+                <div class="bg-black rounded-full h-16 w-16 flex items-center justify-center">
+                    <img alt="icon-delivery" class="h-12 w-12" src="/images/options/icon-customer-service.svg">
+                </div>
+            </div>
+            <span class="font-semibold">24/7 CUSTOMER SERVICE</span>
+            <span>Friendly 24/7 customer support</span>
+        </div>
+
+        <div class="flex flex-col gap-5 items-center">
+            <div class="bg-gray-400 rounded-full h-20 w-20 flex items-center justify-center ">
+                <div class="bg-black rounded-full h-16 w-16 flex items-center justify-center">
+                    <img alt="icon-delivery" class="h-12 w-12" src="/images/options/Icon-secure.svg">
+                </div>
+            </div>
+            <span class="font-semibold">MONEY BACK GUARANTEE</span>
+            <span>We reurn money within 30 days</span>
+        </div>
     </section>
     <!--    Template for card-->
     <template id="sales-card-template">
@@ -546,7 +586,7 @@
                 <div class="reduction-price absolute left-2 top-3 rounded px-3 py-1 bg-red-500 text-white text-sm">
                 </div>
 
-                <div class="add-to-card-section absolute bottom-0 hidden w-full h-11 bg-black text-white text-xl hover:text-red-500 justify-center items-center ">
+                <div class="add-to-card-section absolute cursor-pointer bottom-0 hidden w-full h-11 bg-black text-white text-xl hover:text-red-100 justify-center items-center ">
                     Add To Cart
                 </div>
 
