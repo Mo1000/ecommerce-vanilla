@@ -1,31 +1,34 @@
 interface IconElementModel {
-    attr:NonNullable<any>
+    attr: NonNullable<any>
     child: any[]
     [key: string]: any
 }
 
-export function createSVGElement(iconData: IconElementModel) {
+export function createSVGElement(iconData: IconElementModel,attributesSvg?:any) {
     // Create the SVG element
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-    if(!iconData.attr["width"]){
+    const attributes = {
+        ...iconData.attr,
+        ...attributesSvg
+    }
+    if (!attributes["width"]) {
         svg.setAttribute("width", "20px");
     }
-    if(!iconData.attr["height"]){
+    if (!attributes["height"]) {
         svg.setAttribute("height", "20px");
     }
 
     // Set attributes
-    for (const attribute in iconData.attr) {
-        if (iconData.attr.hasOwnProperty(attribute)) {
-            if (attribute === "style" && typeof iconData.attr[attribute] === "object") {
+    for (const attribute in attributes) {
+        if (attributes.hasOwnProperty(attribute)) {
+            if (attribute === "style" && typeof attributes[attribute] === "object") {
                 let style = "";
-                for (const key in iconData.attr[attribute]) {
-                    style += `${key}:${iconData.attr[attribute][key]}; `;
+                for (const key in attributes[attribute]) {
+                    style += `${key}:${attributes[attribute][key]}; `;
                 }
                 svg.setAttribute(attribute, style);
             } else
-                svg.setAttribute(attribute, iconData.attr[attribute]);
+                svg.setAttribute(attribute, attributes[attribute]);
         }
     }
 

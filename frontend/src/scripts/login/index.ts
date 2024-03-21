@@ -1,3 +1,6 @@
+import '@/scripts/nav/index.ts'
+import '@/scripts/footer/index.ts'
+
 function handleLoginForm() {
   const form = document.getElementById("login-form") as HTMLFormElement;
   form.addEventListener("submit", (e) => {

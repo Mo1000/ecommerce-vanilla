@@ -1,3 +1,5 @@
+import '@/scripts/nav/index.ts'
+import '@/scripts/footer/index.ts'
 import {CardList} from "@/classes/card/CardList.ts";
 import {createSVGElement} from "@/scripts/globals.ts";
 import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";

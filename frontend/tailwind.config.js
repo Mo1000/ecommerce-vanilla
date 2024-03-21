@@ -1,4 +1,6 @@
 import flowBitePlugin from 'flowbite/plugin'
+import forms from '@tailwindcss/forms'
+import aspectRatio from '@tailwindcss/aspect-ratio'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -12,7 +14,9 @@ export default {
     },
   },
   plugins: [
-    flowBitePlugin
+    flowBitePlugin,
+    forms,
+    aspectRatio,
   ],
   corePlugins: {
     preflight: false,

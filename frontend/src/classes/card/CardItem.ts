@@ -1,6 +1,6 @@
-import {cloneTemplate, createElement} from "@/functions/dom.ts";
+import {createElement} from "@/functions/dom.ts";
 import {createSVGElement} from "@/scripts/globals.ts";
-import {FaEyeIconSolid, FaHeartIconSolid, heartIconOutline} from "@/constants/icons.ts";
+import {FaEyeIconSolid, FaHeartIconSolid, heartIconOutline, MdOutlineShoppingCart} from "@/constants/icons.ts";
 import {signal} from "@preact/signals-core";
 import {CardDataModel} from "@/models/card.model.ts";
 
@@ -36,10 +36,38 @@ export class CardItem {
 
     private _render() {
 
-        const cloneTemplateCard = cloneTemplate('sales-card-template')
-
         // Append the card to the sales
-        this._card.appendChild(cloneTemplateCard);
+        this._card.innerHTML = `   <div>
+            <div class="card-icons-img h-[250px] w-[270px] bg-gray-100 flex items-center justify-center relative">
+                <div class="absolute  right-2 top-3 space-y-3 z-10">
+                    <div class="heart-icon bg-white rounded-full w-8 h-8 flex justify-center items-center">
+                    </div>
+
+                    <div class="eye-icon bg-white rounded-full w-8 h-8 flex justify-center items-center">
+                    </div>
+                </div>
+                <div class="reduction-price absolute left-2 top-3 rounded px-3 py-1 bg-red-500 text-white text-sm">
+                </div>
+
+                <div class="add-to-card-section absolute cursor-pointer bottom-0 hidden w-full h-11 bg-black text-white text-xl hover:text-red-100  justify-center items-center gap-3 ">
+                
+                   <span> Add To Cart</span>
+                </div>
+
+            </div>
+            <div class="text-price-Container space-y-3 my-4">
+                <div class="text-card text-base"></div>
+                <div class="flex gap-3">
+                    <span class="final-price-card text-red-500"></span>
+                    <span class="previous-price-card line-through text-gray-400"></span>
+                </div>
+                <div class="star-container flex gap-2">
+                    <picture class="flex gap-2">
+                    </picture>
+                    <span class="text-gray-400"></span>
+                </div>
+            </div>
+        </div>`;
 
 
         const contentIconsAndImg = this._card.querySelector('.card-icons-img') as HTMLElement;
@@ -85,21 +113,26 @@ export class CardItem {
 
         const reductionPrice = contentIconsAndImg.querySelector('.reduction-price') as HTMLElement
 
-       if(this._cardData?.reductionPrice && this._cardData.reductionPrice !== 0){
-           reductionPrice.innerHTML = `-${this._cardData.reductionPrice}%`
-       }
-       else {
-           reductionPrice.remove()
-       }
+        if (this._cardData?.reductionPrice && this._cardData.reductionPrice !== 0) {
+            reductionPrice.innerHTML = `-${this._cardData.reductionPrice}%`
+        } else {
+            reductionPrice.remove()
+        }
 
         //img
         const imgCard = createElement("img", {
             alt: "card",
-            class: "w-2/3",
+            class: "w-2/3 hover:opacity-75",
             src: this._cardData.image
         })
 
         contentIconsAndImg.appendChild(imgCard)
+
+
+        const divAddToCart = this._card.querySelector(".add-to-card-section") as HTMLElement
+        divAddToCart.prepend(createSVGElement(MdOutlineShoppingCart,{
+            class:"hover:fill-red-100"
+        }))
 
 
         //text and price
@@ -113,10 +146,9 @@ export class CardItem {
         finalPrice.innerText = `$${this._cardData.finalPrice}`
 
         const previousPrice = textAndPriceContainer.querySelector('.previous-price-card') as HTMLElement
-        if(this._cardData?.previousPrice  && this._cardData.previousPrice !== 0){
-             previousPrice.innerText = `$${this._cardData.previousPrice}`
-        }
-        else {
+        if (this._cardData?.previousPrice && this._cardData.previousPrice !== 0) {
+            previousPrice.innerText = `$${this._cardData.previousPrice}`
+        } else {
             previousPrice.remove()
         }
 
@@ -137,15 +169,15 @@ export class CardItem {
         const textStars = starContainer.querySelector("span") as HTMLElement
         textStars.innerText = `(${this._cardData.stars.number})`
 
-        if(this._cardData?.colorList && this._cardData.colorList.length!==0){
-            const colorList=createElement('div',{
-                class:"flex gap-2 items-center"
+        if (this._cardData?.colorList && this._cardData.colorList.length !== 0) {
+            const colorList = createElement('div', {
+                class: "flex gap-2 items-center"
             })
 
-            this._cardData.colorList.forEach((color)=>{
-                colorList.appendChild(createElement('div',{
-                    class:"w-4 h-4 rounded-full hover:ring-1 ring-black  cursor-pointer ",
-                    style:`background-color:${color}`
+            this._cardData.colorList.forEach((color) => {
+                colorList.appendChild(createElement('div', {
+                    class: "w-4 h-4 rounded-full hover:ring-1 ring-black  cursor-pointer ",
+                    style: `background-color:${color}`
                 }))
             })
 

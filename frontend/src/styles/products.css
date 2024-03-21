@@ -1,0 +1,4 @@
+@import "style.css";
+main {
+    @apply py-0;
+}

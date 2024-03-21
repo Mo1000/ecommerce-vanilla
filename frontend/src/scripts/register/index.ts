@@ -1,3 +1,6 @@
+import '@/scripts/nav/index.ts'
+import '@/scripts/footer/index.ts'
+
 function handleRegisterForm() {
   const form = document.getElementById("register-form") as HTMLFormElement;
   form.addEventListener("submit", (e) => {
@@ -7,5 +10,7 @@ function handleRegisterForm() {
     console.log(data);
   });
 }
+
+
 
 handleRegisterForm();
