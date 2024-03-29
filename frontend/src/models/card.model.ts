@@ -9,5 +9,6 @@ export interface CardDataModel {
         total: number
     }
     colorList?: string[]
+    sizeList?: string[]
     [key: string]: any
 }

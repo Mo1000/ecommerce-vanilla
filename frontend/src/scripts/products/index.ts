@@ -2,8 +2,10 @@ import '@/scripts/nav/index.ts'
 import '@/scripts/footer/index.ts'
 import {advertisingData} from "@/constants/data.ts";
 import {CardList} from "@/classes/card/CardList.ts";
-import {signal} from "@preact/signals-core";
+import {Signal, signal} from "@preact/signals-core";
 import {createElement} from "@/functions/dom.ts";
+import {CardDataModel} from "@/models/card.model.ts";
+import UploadServices from "@/services/upload.services.ts";
 
 
 function retrieveUrlParams(key: string) {
@@ -11,6 +13,20 @@ function retrieveUrlParams(key: string) {
     const value = urlParams.get(key)
 
     return decodeURIComponent(value || "")
+}
+
+const testDownload = () => {
+    const form = document.querySelector("#testDownload") as HTMLFormElement
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault()
+        const formData = new FormData(form)
+        const data = Object.fromEntries(formData.entries()) as { imgProduct: File }
+        if (Object.values(data).length !== 0) {
+            const upload = UploadServices
+            const res = await upload.uploadFile(data.imgProduct)
+            console.log(res.data)
+        }
+    })
 }
 
 function render() {
@@ -33,50 +49,108 @@ function render() {
     const sectionProducts = document.getElementById("products-List") as HTMLElement;
     productsList.appendTo(sectionProducts)
 
+
 }
 
-function handleFilter() {
-    const colorFilterData = signal<string[]>([])
-    const colorFilter = document.getElementById("color-filter") as HTMLFormElement;
-    const colorFilterOptions = colorFilter.querySelectorAll("input[type=checkbox]") as NodeListOf<HTMLInputElement>
-    colorFilterOptions.forEach((input) => {
+// Function to check if all entries in the object are not empty
+function areAllEntriesNotEmpty(obj: any) {
+    // Iterate over each property in the object
+    for (const key in obj) {
+        // Check if the property value is an array and if it is not empty
+        if (Array.isArray(obj[key]) && obj[key].length === 0) {
+            return false; // If any array is empty, return false
+        }
+    }
+    return true; // If all arrays are not empty, return true
+}
+
+// Function to check if at least one entry in the object is not empty
+function isAtLeastOneEntryNotEmpty(obj: any) {
+    // Iterate over each property in the object
+    for (const key in obj) {
+        // Check if the property value is an array and if it is not empty
+        if (Array.isArray(obj[key]) && obj[key].length > 0) {
+            return true; // If any array is not empty, return true
+        }
+    }
+    return false; // If all arrays are empty, return false
+}
+
+
+type FilterDataModel = {
+    colors: string[]
+    sizes: string[]
+
+}
+
+function updateFilterData(filterElement: HTMLFormElement, filterData: Signal<FilterDataModel>, key: string) {
+    const filterOptions = filterElement.querySelectorAll("input[type=checkbox]") as NodeListOf<HTMLInputElement>
+    filterOptions.forEach((input) => {
         input.addEventListener("change", () => {
             if (!input.checked) {
-                colorFilterData.value = colorFilterData.value.filter((color) => color !== input.value)
+                filterData.value = {
+                    ...filterData.value,
+                    // @ts-ignore
+                    [key]: filterData.value[key].filter((data) => data !== input.value)
+                }
             } else {
-                colorFilterData.value = [...colorFilterData.value, input.value]
+                // @ts-ignore
+                filterData.value = {...filterData.value, [key]: [...filterData.value[key], input.value]}
+
             }
-            const checkedValues = colorFilterData.value
-
-            const sectionProducts = document.getElementById("products-List") as HTMLElement;
-            const dataFiltered = advertisingData.filter((product) => checkedValues.some((color) => product?.colorList?.includes(color)))
-
-            if (dataFiltered.length === 0 && checkedValues.length > 0) {
-                const elementNotFound = createElement("div", {
-                    id: "not-found-products",
-                    class: "h-[50vh] w-full"
-                })
-
-                elementNotFound.className = "h-[50vh] w-full  flex justify-center items-center"
-                elementNotFound.innerHTML = `  <h1 class="text-center">No products found</h1>`
-
-                sectionProducts.before(elementNotFound)
-                sectionProducts.classList.add("hidden")
-                return
-            }
-
-            document.getElementById("not-found-products")?.remove()
-            sectionProducts.classList.remove("hidden")
-
-
-            const filteredProducts = checkedValues.length > 0 ? dataFiltered : advertisingData
-            const productsList = new CardList(filteredProducts);
-
-            sectionProducts.innerHTML = ""
-            productsList.appendTo(sectionProducts)
         })
     });
+    return filterData.value
 }
 
+function handleFilter(data: CardDataModel[]) {
+    const filterData = signal<FilterDataModel>(
+        {
+            colors: [],
+            sizes: []
+        }
+    )
+    const filterColor = document.getElementById("color-filter") as HTMLFormElement;
+    filterData.value = updateFilterData(filterColor, filterData, "colors")
+
+    const filterSize = document.getElementById("size-filter") as HTMLFormElement;
+    filterData.value = updateFilterData(filterSize, filterData, "sizes")
+
+
+    filterData.subscribe(value => {
+        const sectionProducts = document.getElementById("products-List") as HTMLElement;
+        const dataFiltered = data.filter((product) => {
+            return value.colors.some((color) => product.colorList?.includes(color)) || value.sizes.some((size) => product.sizeList?.includes(size))
+        })
+
+
+        if (dataFiltered.length === 0 && areAllEntriesNotEmpty(value)) {
+            const elementNotFound = createElement("div", {
+                id: "not-found-products",
+                class: "h-[50vh] w-full"
+            })
+
+            elementNotFound.className = "h-[50vh] w-full  flex justify-center items-center"
+            elementNotFound.innerHTML = `<h1 class="text-center">No products found</h1>`
+
+            sectionProducts.before(elementNotFound)
+            sectionProducts.classList.add("hidden")
+            return
+        }
+
+        document.getElementById("not-found-products")?.remove()
+        sectionProducts.classList.remove("hidden")
+
+
+        const filteredProducts = isAtLeastOneEntryNotEmpty(value) ? dataFiltered : data
+        const productsList = new CardList(filteredProducts);
+
+        sectionProducts.innerHTML = ""
+        productsList.appendTo(sectionProducts)
+    })
+}
+
+
 render()
-handleFilter()
+handleFilter(advertisingData)
+testDownload()

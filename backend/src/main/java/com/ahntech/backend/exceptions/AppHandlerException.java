@@ -22,12 +22,12 @@ public class AppHandlerException {
 
     // Handle all exceptions
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    protected Map<String, Object> handleInternalServerErrorExceptions(
-            @NonNull Exception ex, WebRequest request) {
-        CustomError customError = new CustomError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request, ex.getMessage());
-        return customError.getErrorAttributes();
-    }
+//    @ExceptionHandler(Exception.class)
+//    protected Map<String, Object> handleInternalServerErrorExceptions(
+//            @NonNull Exception ex, WebRequest request) {
+//        CustomError customError = new CustomError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request, ex.getMessage());
+//        return customError.getErrorAttributes();
+//    }
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.11.30",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
@@ -16,9 +18,12 @@
     "vite": "^5.1.0"
   },
   "dependencies": {
+    "@cloudinary/url-gen": "^1.19.0",
     "@preact/signals-core": "^1.5.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
-    "flowbite": "^2.3.0"
+    "flowbite": "^2.3.0",
+    "js-cookie": "^3.0.5",
+    "ky": "^1.2.3"
   }
 }

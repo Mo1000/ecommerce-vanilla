@@ -1,7 +1,7 @@
 import '@/scripts/nav/index.ts'
 import '@/scripts/footer/index.ts'
 import {CardList} from "@/classes/card/CardList.ts";
-import {createSVGElement} from "@/scripts/globals.ts";
+import {createSVGElement} from "@/utils";
 import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";
 import {CategoriesList} from "@/classes/category/categoriesList.ts";
 import {signal} from "@preact/signals-core";

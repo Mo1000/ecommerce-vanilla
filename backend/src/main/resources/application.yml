@@ -16,6 +16,10 @@ spring:
   main:
     web-application-type: servlet
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
 
 management:
   endpoints:

@@ -1,5 +1,5 @@
 import {createElement} from "@/functions/dom.ts";
-import {createSVGElement} from "@/scripts/globals.ts";
+import {createSVGElement} from "@/utils";
 import {FaEyeIconSolid, FaHeartIconSolid, heartIconOutline, MdOutlineShoppingCart} from "@/constants/icons.ts";
 import {signal} from "@preact/signals-core";
 import {CardDataModel} from "@/models/card.model.ts";
