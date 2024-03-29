@@ -103,8 +103,8 @@ async function renderTodaySales() {
 
     handleScroll(divCardContainer, controlLeft, controlRight)
 
-    const productsFetch =await  ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.TODAY)])
-    const products=productsFetch.data
+    const productsFetch = await ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.TODAY)])
+    const products = productsFetch.data
 
     const cardList = new CardList(products)
     cardList.appendTo(divCardContainer)
@@ -143,8 +143,8 @@ async function renderCurrentMonthSection() {
     // Add the card in the today sales
     const divCardContainer = currentMonth?.querySelector('#current-month-list') as HTMLElement
 
-    const productsFetch =await  ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.CURRENT_MONTH)])
-    const products=productsFetch.data
+    const productsFetch = await ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.CURRENT_MONTH)])
+    const products = productsFetch.data
 
     const cardList = new CardList(products.slice(0, 4))
     cardList.appendTo(divCardContainer)
@@ -218,10 +218,9 @@ async function renderExplorationSection() {
     // Add the card in the today sales
     const explorationContainer = explorationSection?.querySelector('#exploration-list') as HTMLElement
 
-    const sectionsFetch=[transformEnumJsToEnumJava(SectionProductEnum.My_Products)]
-    const productsFetch =await  ProductService.getProductsBySections(sectionsFetch ,8)
-    const products=productsFetch.data
-
+    const sectionsFetch = [transformEnumJsToEnumJava(SectionProductEnum.My_Products)]
+    const productsFetch = await ProductService.getProductsBySections(sectionsFetch, 8)
+    const products = productsFetch.data
 
 
     const cardList = new CardList(products)

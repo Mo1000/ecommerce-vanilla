@@ -21,7 +21,7 @@ const addNav = async () => {
                 </button>
             </div>
             <div class="font-bold text-2xl ">
-                <a href="/"> Exclusive</a>
+                <a href="/" class="hover:text-gray-700"> Exclusive</a>
             </div>
             <div class="hidden md:ml-6 md:flex md:space-x-8" id="routes-link">
                 <a class="inline-flex text-gray-500  items-center  px-1 pt-1  text-sm  font-medium "
