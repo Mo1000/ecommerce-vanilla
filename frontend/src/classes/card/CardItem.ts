@@ -1,14 +1,14 @@
 import {createElement} from "@/functions/dom.ts";
-import {createSVGElement} from "@/utils";
+import {createSVGElement, optimizeUrl} from "@/utils";
 import {FaEyeIconSolid, FaHeartIconSolid, heartIconOutline, MdOutlineShoppingCart} from "@/constants/icons.ts";
 import {signal} from "@preact/signals-core";
-import {CardDataModel} from "@/models/card.model.ts";
+import {ProductModel} from "@/models/product.model.ts";
 
 
 export class CardItem {
-    private _cardData: CardDataModel;
+    private _cardData: ProductModel;
 
-    constructor(cardData: CardDataModel) {
+    constructor(cardData: ProductModel) {
         this._cardData = cardData
         this._render()
         this._handleEvents()
@@ -123,7 +123,7 @@ export class CardItem {
         const imgCard = createElement("img", {
             alt: "card",
             class: "w-2/3 hover:opacity-75",
-            src: this._cardData.image
+            src:optimizeUrl(this._cardData.image).toURL()
         })
 
         contentIconsAndImg.appendChild(imgCard)

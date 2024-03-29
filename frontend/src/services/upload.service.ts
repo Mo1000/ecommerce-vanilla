@@ -5,7 +5,7 @@ import {UploadCloudinaryResponse} from "@/models/upload.model.ts";
 import {ResponseErrorAPi} from "@/models/handleErrorApi/error-api.model.ts";
 import {FormattedResponse} from "@/models/api-response.model.ts";
 
-abstract class UploadServices {
+abstract class UploadService {
   static async uploadFile(file: File): Promise<FormattedResponse<string>> {
     if (!file)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,4 +57,4 @@ abstract class UploadServices {
   }
 }
 
-export default UploadServices;
+export default UploadService;

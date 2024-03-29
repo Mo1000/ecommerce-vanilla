@@ -16,6 +16,10 @@ public interface ProductService {
      */
     Product getProductById(String idProduct);
 
+
+
+     List<Product> findBySection(List<String> sections,Integer limit);
+
     List<Product> getAllProduct();
 
     ResponseEntity<MessageResponse> addProduct(ProductDto newProduct);

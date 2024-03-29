@@ -78,4 +78,19 @@ export const optimizeUrl = (image: string): CloudinaryImage => {
         .quality('auto')
         .format('webp');
 };
+export  function transformEnumJavaToEnumJs(str:string) {
+    return  str.toLowerCase().replaceAll("_"," ");
+}
+
+export function transformEnumJsToEnumJava(str:string) {
+    return  str.toUpperCase().replaceAll(" ","_")
+}
+
+
+
+
+
+
+
+
 

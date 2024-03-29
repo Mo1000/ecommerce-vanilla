@@ -1,11 +1,11 @@
 import '@/scripts/nav/index.ts'
 import '@/scripts/footer/index.ts'
-import {advertisingData} from "@/constants/data.ts";
 import {CardList} from "@/classes/card/CardList.ts";
 import {Signal, signal} from "@preact/signals-core";
 import {createElement} from "@/functions/dom.ts";
-import {CardDataModel} from "@/models/card.model.ts";
-import UploadServices from "@/services/upload.services.ts";
+import {ProductModel} from "@/models/product.model.ts";
+import {ProductService} from "@/services/product.service.ts";
+import {transformEnumJsToEnumJava} from "@/utils";
 
 
 function retrieveUrlParams(key: string) {
@@ -15,25 +15,11 @@ function retrieveUrlParams(key: string) {
     return decodeURIComponent(value || "")
 }
 
-const testDownload = () => {
-    const form = document.querySelector("#testDownload") as HTMLFormElement
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault()
-        const formData = new FormData(form)
-        const data = Object.fromEntries(formData.entries()) as { imgProduct: File }
-        if (Object.values(data).length !== 0) {
-            const upload = UploadServices
-            const res = await upload.uploadFile(data.imgProduct)
-            console.log(res.data)
-        }
-    })
-}
-
-function render() {
+function render(products: ProductModel[], sectionParam: string) {
 
     const currentSectionLink = document.getElementById("current-section-link") as HTMLAnchorElement
-    let currentSectionValue = retrieveUrlParams("section") || "All Products"
-    currentSectionValue = currentSectionValue.charAt(0).toUpperCase() + currentSectionValue.slice(1)
+
+    const currentSectionValue = sectionParam.charAt(0).toUpperCase() + sectionParam.slice(1)
     currentSectionLink.innerText = currentSectionValue
 
     const bigTitleContainer = document.getElementById("big-title-container") as HTMLElement
@@ -45,7 +31,7 @@ function render() {
     paragraphElement.innerText = "Checkout out the latest release of Basic Tees, new and improved with four openings!"
 
 
-    const productsList = new CardList(advertisingData);
+    const productsList = new CardList(products);
     const sectionProducts = document.getElementById("products-List") as HTMLElement;
     productsList.appendTo(sectionProducts)
 
@@ -103,7 +89,7 @@ function updateFilterData(filterElement: HTMLFormElement, filterData: Signal<Fil
     return filterData.value
 }
 
-function handleFilter(data: CardDataModel[]) {
+function handleFilter(data: ProductModel[]) {
     const filterData = signal<FilterDataModel>(
         {
             colors: [],
@@ -150,7 +136,14 @@ function handleFilter(data: CardDataModel[]) {
     })
 }
 
+const sectionParam = retrieveUrlParams("section") || "All Products"
+const productsFetch = await ProductService.getProductsBySections([
+    transformEnumJsToEnumJava(sectionParam)
+])
+const products = productsFetch.data
 
-render()
-handleFilter(advertisingData)
-testDownload()
+console.log(products)
+render(products, sectionParam)
+handleFilter(products)
+
+

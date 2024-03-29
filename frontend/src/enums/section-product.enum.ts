@@ -1,5 +1,5 @@
 export enum SectionProductEnum {
-    TODAY= "Today",
-    CURRENT_MONTH= "Current month",
-    My_Products= "My Products",
+    TODAY= "today",
+    CURRENT_MONTH= "current month",
+    My_Products= "my Products",
 }

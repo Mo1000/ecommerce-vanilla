@@ -2,9 +2,6 @@ package com.ahntech.backend.entities;
 
 import com.ahntech.backend.dtos.ProductDto;
 import com.ahntech.backend.enums.SectionProduct;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.EnumNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
@@ -22,18 +19,17 @@ import java.util.Objects;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Product {
 
-     @Id
-     String id;
-     String title;
-     Double finalPrice;
-     Double previousPrice; // Use Double for optional fields
-     String image;
-     Double reductionPrice; // Use Double for optional fields
-     Stars stars;
-     List<String> colorList;
-     List<String> sizeList;
-     SectionProduct section;
-
+    @Id
+    String id;
+    String title;
+    Double finalPrice;
+    Double previousPrice; // Use Double for optional fields
+    String image;
+    Double reductionPrice; // Use Double for optional fields
+    Stars stars;
+    List<String> colorList;
+    List<String> sizeList;
+    List<SectionProduct> sections;
 
 
     public void setAllAttributes(ProductDto newProduct) {
@@ -45,9 +41,8 @@ public class Product {
         this.stars = newProduct.getStars();
         this.colorList = newProduct.getColorList();
         this.sizeList = newProduct.getSizeList();
-        this.section = newProduct.getSection();
+        this.sections = newProduct.getSections();
     }
-
 
 
     @Override

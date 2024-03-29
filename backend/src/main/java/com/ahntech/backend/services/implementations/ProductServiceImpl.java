@@ -10,12 +10,17 @@ import com.ahntech.backend.models.MessageResponse;
 import com.ahntech.backend.repositories.ProductRepository;
 import com.ahntech.backend.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +30,10 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
+    private MongoOperations mongoOperations;
+
+    public static final String COLLECTION_NAME = "product";
 
     public final ProductRepository productRepository;
 
@@ -36,6 +45,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(String idProduct) {
         return productRepository.findById(idProduct).orElseThrow(RessourcesNotFoundException::new);
+    }
+
+
+    @Override
+    public List<Product> findBySection(List<String> sections, Integer limit) {
+
+        if (!CollectionUtils.isEmpty(sections)) {
+            List<Product> productList = new ArrayList<>();
+            for (String section : sections) {
+                Query query = new Query(Criteria.where("sections").is(section));
+                productList.addAll(mongoOperations.find(query, Product.class, COLLECTION_NAME));
+            }
+            return (limit != null &&  limit != 0 )  ?  productList.subList(0, limit) : productList;
+        } else
+            throw new BadRequestException("List of section is empty");
+
     }
 
     @Override

@@ -1,12 +1,15 @@
 import '@/scripts/nav/index.ts'
 import '@/scripts/footer/index.ts'
 import {CardList} from "@/classes/card/CardList.ts";
-import {createSVGElement} from "@/utils";
+import {createSVGElement, transformEnumJsToEnumJava} from "@/utils";
 import {FaArrowLeft, FaArrowRight} from "@/constants/icons.ts";
 import {CategoriesList} from "@/classes/category/categoriesList.ts";
 import {signal} from "@preact/signals-core";
-import {advertisingData, categories, listOfTodaySection} from "@/constants/data.ts";
+import {categories} from "@/constants/data.ts";
 import {createElement} from "@/functions/dom.ts";
+import {ProductService} from "@/services/product.service.ts";
+import {SectionProductEnum} from "@/enums/section-product.enum.ts";
+
 
 function handleScroll(scrollElement: HTMLElement, controlLeft: HTMLButtonElement, controlRight: HTMLButtonElement) {
 
@@ -83,7 +86,7 @@ function handleScroll(scrollElement: HTMLElement, controlLeft: HTMLButtonElement
 
 }
 
-function renderTodaySales() {
+async function renderTodaySales() {
     const todaySales = document.getElementById('today-sales');
 
     // Add the SVG element to the control-left
@@ -100,8 +103,10 @@ function renderTodaySales() {
 
     handleScroll(divCardContainer, controlLeft, controlRight)
 
+    const productsFetch =await  ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.TODAY)])
+    const products=productsFetch.data
 
-    const cardList = new CardList(listOfTodaySection)
+    const cardList = new CardList(products)
     cardList.appendTo(divCardContainer)
 
 
@@ -131,15 +136,17 @@ function displayCategories() {
 
 }
 
-function renderCurrentMonthSection() {
+async function renderCurrentMonthSection() {
     const currentMonth = document.getElementById('current-month-section');
 
 
     // Add the card in the today sales
     const divCardContainer = currentMonth?.querySelector('#current-month-list') as HTMLElement
 
+    const productsFetch =await  ProductService.getProductsBySections([transformEnumJsToEnumJava(SectionProductEnum.CURRENT_MONTH)])
+    const products=productsFetch.data
 
-    const cardList = new CardList(listOfTodaySection.slice(0, 4))
+    const cardList = new CardList(products.slice(0, 4))
     cardList.appendTo(divCardContainer)
 }
 
@@ -194,7 +201,7 @@ function renderAdvertising() {
 }
 
 
-function renderExplorationSection() {
+async function renderExplorationSection() {
 
     const explorationSection = document.getElementById('exploration-section');
 
@@ -211,8 +218,13 @@ function renderExplorationSection() {
     // Add the card in the today sales
     const explorationContainer = explorationSection?.querySelector('#exploration-list') as HTMLElement
 
+    const sectionsFetch=[transformEnumJsToEnumJava(SectionProductEnum.My_Products)]
+    const productsFetch =await  ProductService.getProductsBySections(sectionsFetch ,8)
+    const products=productsFetch.data
 
-    const cardList = new CardList(advertisingData)
+
+
+    const cardList = new CardList(products)
     cardList.appendTo(explorationContainer)
 }
 
@@ -277,9 +289,9 @@ function renderNewArrivals() {
 
 }
 
-renderTodaySales()
+await renderTodaySales()
 displayCategories()
-renderCurrentMonthSection()
+await renderCurrentMonthSection()
 renderAdvertising()
-renderExplorationSection()
+await renderExplorationSection()
 renderNewArrivals()

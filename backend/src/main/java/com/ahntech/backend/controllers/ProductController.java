@@ -31,6 +31,12 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
+    @GetMapping(path = "/section")
+    List<Product> getProductsBySection(@RequestParam("list") String list,@RequestParam(value = "limit" ,required = false, defaultValue = "0") Integer limit) {
+        List<String> sections = List.of(list.split(","));
+        return productService.findBySection(sections, limit);
+    }
+
     @GetMapping(path = "/{productId}")
     Product getProductById(@PathVariable String productId) {
         return productService.getProductById(productId);

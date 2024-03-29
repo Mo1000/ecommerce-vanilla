@@ -1,4 +1,4 @@
-export interface CardDataModel {
+export interface ProductModel {
     title: string
     finalPrice: number
     previousPrice?: number

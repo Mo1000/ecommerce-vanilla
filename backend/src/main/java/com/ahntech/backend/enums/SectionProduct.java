@@ -9,5 +9,5 @@ import lombok.experimental.FieldDefaults;
 public enum SectionProduct {
     TODAY,
     CURRENT_MONTH,
-    My_Products;
+    MY_PRODUCTS;
 }

@@ -1,6 +1,6 @@
 import ky, {Options} from 'ky';
 import {transformeResponseApi} from '@/utils/transformeResponseApi';
-import {FormattedResponse, ResponseSuccessApiModel} from "@/models/api-response.model.ts";
+import {FormattedResponse} from "@/models/api-response.model.ts";
 import {ResponseErrorAPi} from "@/models/handleErrorApi/error-api.model.ts";
 
 
@@ -29,10 +29,10 @@ export async function get<T>(
     config?: Options,
 ): Promise<FormattedResponse<T>> {
     try {
-        const res: ResponseSuccessApiModel<T> = await kyInstanceClient
+        const res: T = await kyInstanceClient
             .get(path, config)
             .json();
-        return transformeResponseApi<T>(true, res.data);
+        return transformeResponseApi<T>(true, res);
     } catch (error: any) {
         if (error?.name === 'HTTPError') {
             throw transformeResponseApi<ResponseErrorAPi>(
@@ -51,13 +51,13 @@ export async function remove<T>(
     config?: Options,
 ): Promise<FormattedResponse<T>> {
     try {
-        const res: ResponseSuccessApiModel<T> = await kyInstanceClient
+        const res:T = await kyInstanceClient
             .delete(path, {
                 json: body,
                 ...config,
             })
             .json();
-        return transformeResponseApi<T>(true, res.data);
+        return transformeResponseApi<T>(true, res);
     } catch (error: any) {
         if (error?.name === 'HTTPError') {
             throw transformeResponseApi<ResponseErrorAPi>(
@@ -76,13 +76,13 @@ export async function patch<T>(
     config?: Options,
 ): Promise<FormattedResponse<T>> {
     try {
-        const res: ResponseSuccessApiModel<T> = await kyInstanceClient
+        const res: T = await kyInstanceClient
             .patch(path, {
                 json: body,
                 ...config,
             })
             .json();
-        return transformeResponseApi<T>(true, res.data);
+        return transformeResponseApi<T>(true, res);
     } catch (error: any) {
         if (error?.name === 'HTTPError') {
             throw transformeResponseApi<ResponseErrorAPi>(
@@ -101,13 +101,13 @@ export async function post<T>(
     config?: Options,
 ): Promise<FormattedResponse<T>> {
     try {
-        const res: ResponseSuccessApiModel<T> = await kyInstanceClient
+        const res: T = await kyInstanceClient
             .post(path, {
                 json: body,
                 ...config,
             })
             .json();
-        return transformeResponseApi<T>(true, res.data);
+        return transformeResponseApi<T>(true, res);
     } catch (error: any) {
         if (error?.name === 'HTTPError') {
             throw transformeResponseApi<ResponseErrorAPi>(

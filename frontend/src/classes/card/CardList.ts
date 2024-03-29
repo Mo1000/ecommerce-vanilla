@@ -1,9 +1,9 @@
-import {CardDataModel} from "@/models/card.model.ts";
+import {ProductModel} from "@/models/product.model.ts";
 import {CardItem} from "@/classes/card/CardItem.ts";
 
 export class CardList{
-    private  _cardList: CardDataModel[] = []
-    constructor(cardList:CardDataModel[]){
+    private  _cardList: ProductModel[] = []
+    constructor(cardList:ProductModel[]){
         this._cardList=cardList
     }
 

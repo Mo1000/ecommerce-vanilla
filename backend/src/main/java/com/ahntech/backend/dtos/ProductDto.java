@@ -60,7 +60,7 @@ public class ProductDto {
 
 
 
-    SectionProduct section;
+   List<SectionProduct> sections;
 
 
 }

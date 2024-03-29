@@ -1,7 +1,4 @@
-export interface ResponseSuccessApiModel<Type> {
-  statusCode: number;
-  data: Type;
-}
+
 
 export interface DumbFormattedResponse<Type> {
   success: boolean;
