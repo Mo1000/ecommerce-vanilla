@@ -1,12 +1,10 @@
 package com.ahntech.backend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Objects;
 
-@Setter
-@Getter
+@Data
 public class Stars {
     private int number;
     private int total;

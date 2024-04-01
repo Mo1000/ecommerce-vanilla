@@ -109,8 +109,9 @@ function handleFilter(data: ProductModel[]) {
             return value.colors.some((color) => product.colorList?.includes(color)) || value.sizes.some((size) => product.sizeList?.includes(size))
         })
 
+    
 
-        if (dataFiltered.length === 0 && areAllEntriesNotEmpty(value)) {
+        if (dataFiltered.length === 0 && isAtLeastOneEntryNotEmpty(value)) {
             const elementNotFound = createElement("div", {
                 id: "not-found-products",
                 class: "h-[50vh] w-full"
@@ -142,7 +143,6 @@ const productsFetch = await ProductService.getProductsBySections([
 ])
 const products = productsFetch.data
 
-console.log(products)
 render(products, sectionParam)
 handleFilter(products)
 

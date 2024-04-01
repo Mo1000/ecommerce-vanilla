@@ -1,6 +1,6 @@
 package com.ahntech.backend.services.implementations;
 
-import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.enums.CodeResponse;
 import com.ahntech.backend.exceptions.BadRequestException;
@@ -10,11 +10,7 @@ import com.ahntech.backend.models.MessageResponse;
 import com.ahntech.backend.repositories.UserRepository;
 import com.ahntech.backend.services.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,12 +23,8 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private MongoOperations mongoOperations;
 
-    public static final String COLLECTION_NAME = "user";
-
-    public final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -57,17 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public User findOneByUsername(String username) {
-        Query query = new Query(Criteria.where("username").is(username));
-        return mongoOperations.findOne(query, User.class, COLLECTION_NAME);
-    }
 
     /**
      * @return true si l'ajout s'est bien passé
      */
     @Override
-    public ResponseEntity<MessageResponse> addUser(UserDto newUser) {
+    public ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser) {
         try {
             User user = new User();
             user.setAllAttributes(newUser);
@@ -92,9 +79,9 @@ public class UserServiceImpl implements UserService {
      * @return true si l'ajout s'est bien passé
      */
     @Override
-    public ResponseEntity<MessageResponse> addManyUser(List<UserDto> userList) {
+    public ResponseEntity<MessageResponse> addManyUser(List<UserRegisterDto> userList) {
         if (!CollectionUtils.isEmpty(userList)) {
-            for (UserDto user : userList) {
+            for (UserRegisterDto user : userList) {
                 this.addUser(user);
             }
             return ResponseEntity.status(HttpStatus.OK).body(MessageResponse.builder()

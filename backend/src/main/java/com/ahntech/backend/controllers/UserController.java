@@ -1,6 +1,6 @@
 package com.ahntech.backend.controllers;
 
-import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
 import com.ahntech.backend.services.UserService;
@@ -38,12 +38,12 @@ public class UserController {
 
 
     @PostMapping
-    ResponseEntity<MessageResponse> addUser(@Valid @RequestBody UserDto newUser) {
+    ResponseEntity<MessageResponse> addUser(@Valid @RequestBody UserRegisterDto newUser) {
         return this.userService.addUser(newUser);
     }
 
     @PostMapping("/many")
-    HttpEntity<MessageResponse> addManyUser(@RequestBody List<@Valid UserDto> userList) {
+    HttpEntity<MessageResponse> addManyUser(@RequestBody List<@Valid UserRegisterDto> userList) {
 
         return this.userService.addManyUser(userList);
     }

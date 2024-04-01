@@ -1,7 +1,7 @@
 package com.ahntech.backend.services;
 
 
-import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +12,6 @@ import java.util.List;
 
 public interface UserService {
 
-    /**
-     * Méthode permettant de trouver un user à travers son username
-     *
-     * @param username user à trouver
-     * @return User
-     **/
-    User findOneByUsername(String username);
 
     /**
      * Méthode d'obtention du user à travers son idArticle
@@ -32,10 +25,10 @@ public interface UserService {
 
 
 
-    ResponseEntity<MessageResponse> addUser(UserDto newUser);
+    ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser);
 
 
-    ResponseEntity<MessageResponse> addManyUser(List<UserDto> userList);
+    ResponseEntity<MessageResponse> addManyUser(List<UserRegisterDto> userList);
 
 
 

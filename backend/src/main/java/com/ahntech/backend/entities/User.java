@@ -1,22 +1,27 @@
 package com.ahntech.backend.entities;
 
-import com.ahntech.backend.dtos.UserDto;
+import com.ahntech.backend.interfaces.user.UserInformations;
+import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.enums.AccountRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-@Setter
-@Getter
+@Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "user")
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class User {
+public class User implements UserInformations {
 
     @Id
     String id;
@@ -31,11 +36,9 @@ public class User {
     String phone;
 
 
-    public User() {
 
-    }
 
-    public void setAllAttributes(UserDto newUser) {
+    public void setAllAttributes(UserRegisterDto newUser) {
         this.username = newUser.getUsername();
         this.email = newUser.getEmail();
         this.phone = newUser.getPhone();
@@ -69,5 +72,30 @@ public class User {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
