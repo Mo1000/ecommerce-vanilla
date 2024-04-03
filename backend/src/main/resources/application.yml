@@ -4,9 +4,9 @@ server:
     include-message: always
     include-stacktrace: never
 spring:
-  devtools:
-   restart:
-     enabled: off
+#  devtools:
+#   restart:
+#     enabled: off
   data:
     mongodb:
       host: localhost

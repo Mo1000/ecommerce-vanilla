@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,12 @@ public class AppHandlerException {
 //        return customError.getErrorAttributes();
 //    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadCredentialsException.class)
+    protected Map<String, Object> handleException(WebRequest request, Exception ex) {
+        CustomError customError = new CustomError(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+        return customError.getErrorAttributes();
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -30,19 +30,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    /**
-     * @param idUser id de l'user
-     * @return User
-     */
+
     @Override
     public User getUserById(String idUser) {
         return userRepository.findById(idUser).orElseThrow(RessourcesNotFoundException::new);
     }
 
 
-    /**
-     * @return List<User> liste des users
-     */
     @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -50,9 +44,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-    /**
-     * @return true si l'ajout s'est bien passé
-     */
+
     @Override
     public ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser) {
         try {
@@ -74,10 +66,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**
-     * @param userList liste des users à ajouter
-     * @return true si l'ajout s'est bien passé
-     */
+
     @Override
     public ResponseEntity<MessageResponse> addManyUser(List<UserRegisterDto> userList) {
         if (!CollectionUtils.isEmpty(userList)) {

@@ -3,6 +3,7 @@ package com.ahntech.backend.configuration;
 import com.ahntech.backend.interfaces.user.UserInformations;
 import com.ahntech.backend.interfaces.user.UserInformationsService;
 import com.ahntech.backend.services.implementations.JwtService;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException, SignatureException {
         if (request.getServletPath().contains("/api/auth")) {
             filterChain.doFilter(request, response);
             return;

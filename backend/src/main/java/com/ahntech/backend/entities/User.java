@@ -36,8 +36,6 @@ public class User implements UserInformations {
     String phone;
 
 
-
-
     public void setAllAttributes(UserRegisterDto newUser) {
         this.username = newUser.getUsername();
         this.email = newUser.getEmail();
