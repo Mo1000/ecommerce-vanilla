@@ -4,23 +4,21 @@ import com.ahntech.backend.dtos.ProductDto;
 import com.ahntech.backend.enums.SectionProduct;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.util.List;
 import java.util.Objects;
 
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "product")
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class Product {
+public class Product extends Base {
 
-    @Id
-    String id;
+
     String title;
     Double finalPrice;
     Double previousPrice; // Use Double for optional fields

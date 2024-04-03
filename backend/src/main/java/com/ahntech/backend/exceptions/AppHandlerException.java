@@ -22,13 +22,13 @@ public class AppHandlerException {
 
 
     // Handle all exceptions
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(Exception.class)
-//    protected Map<String, Object> handleInternalServerErrorExceptions(
-//            @NonNull Exception ex, WebRequest request) {
-//        CustomError customError = new CustomError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request, ex.getMessage());
-//        return customError.getErrorAttributes();
-//    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    protected Map<String, Object> handleInternalServerErrorExceptions(
+            @NonNull Exception ex, WebRequest request) {
+        CustomError customError = new CustomError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request, ex.getMessage());
+        return customError.getErrorAttributes();
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BadCredentialsException.class)
@@ -61,11 +61,11 @@ public class AppHandlerException {
         return customError.getErrorAttributes();
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DuplicateKeyException.class)
     protected Map<String, Object> handleValidationExceptions(
             @NonNull DuplicateKeyException ex, WebRequest request) {
-        CustomError customError = new CustomError(HttpStatus.INTERNAL_SERVER_ERROR, "Duplicate key error", request, ex.getMessage());
+        CustomError customError = new CustomError(HttpStatus.BAD_REQUEST, "Duplicate key error", request, ex.getMessage());
         return customError.getErrorAttributes();
     }
 
@@ -113,7 +113,7 @@ public class AppHandlerException {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(UnprocessableEntityException.class)
     protected Map<String, Object> handleUnprocessableEntityExceptions(UnprocessableEntityException ex, WebRequest request) {
-        CustomError customError = new CustomError(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+        CustomError customError = new CustomError(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage(), request);
         return customError.getErrorAttributes();
     }
 }

@@ -21,6 +21,7 @@ public class UserRegisterDto {
 
     @NotNull(message = "password is required")
     @NotBlank(message = "password must not be blank")
+    @Size(min = 3, message = "password must be at least 3 characters")
      String password;
 
 

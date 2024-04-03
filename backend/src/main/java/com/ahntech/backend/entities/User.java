@@ -5,14 +5,11 @@ import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.enums.AccountRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -21,10 +18,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Document(collection = "user")
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class User implements UserInformations {
+public class User extends Base implements UserInformations {
 
-    @Id
-    String id;
+
     @Indexed(unique = true)
     String username;
     @Indexed(unique = true)
@@ -72,10 +68,16 @@ public class User implements UserInformations {
                 '}';
     }
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority(role.name()));
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthorities();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

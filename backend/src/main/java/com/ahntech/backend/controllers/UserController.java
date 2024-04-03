@@ -1,5 +1,6 @@
 package com.ahntech.backend.controllers;
 
+import com.ahntech.backend.dtos.ChangePasswordDto;
 import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,15 @@ public class UserController {
 
 
     private final UserService userService;
+
+    @PatchMapping
+    public ResponseEntity<MessageResponse> changePassword(
+            @RequestBody ChangePasswordDto request,
+            Principal connectedUser
+    ) {
+       return userService.changePassword(request, connectedUser);
+
+    }
 
     @GetMapping
     List<User> getUsers() {

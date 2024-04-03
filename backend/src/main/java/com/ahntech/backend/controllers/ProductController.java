@@ -21,11 +21,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 @FieldDefaults(level = AccessLevel.PUBLIC)
+//@PreAuthorize("hasRole('ADMIN')")
 public class ProductController {
 
 
     private final ProductService productService;
 
+   // @Secured("ROLE_ADMIN")
     @GetMapping
     List<Product> getProducts() {
         return productService.getAllProduct();

@@ -1,8 +1,9 @@
-package com.ahntech.backend.exceptions.handledJwtError;
+package com.ahntech.backend.helpers.handledJwtError;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.Date;
@@ -34,9 +35,9 @@ public class CustomJwtError {
 
     private Map<String, Object> getErrorAttributes(HttpServletRequest request) {
         Map<String, Object> errors = new HashMap<>();
-        errors.put("statusCode", 404);
-        errors.put("code", "Unauthorized");
-        errors.put("message", "Resource not found");
+        errors.put("statusCode", HttpStatus.UNAUTHORIZED.value());
+        errors.put("code", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        errors.put("message", HttpStatus.UNAUTHORIZED.getReasonPhrase());
         errors.put("meta", getMetaData(request)); // Extract path from the request
         return errors;
     }

@@ -1,11 +1,13 @@
 package com.ahntech.backend.services;
 
 
+import com.ahntech.backend.dtos.ChangePasswordDto;
 import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -24,6 +26,8 @@ public interface UserService {
     List<User> getAllUser();
 
 
+
+     ResponseEntity<MessageResponse> changePassword(ChangePasswordDto request, Principal connectedUser);
 
     ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser);
 

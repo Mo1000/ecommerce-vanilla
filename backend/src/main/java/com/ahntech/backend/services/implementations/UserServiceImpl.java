@@ -1,5 +1,6 @@
 package com.ahntech.backend.services.implementations;
 
+import com.ahntech.backend.dtos.ChangePasswordDto;
 import com.ahntech.backend.dtos.UserRegisterDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.enums.CodeResponse;
@@ -9,26 +10,56 @@ import com.ahntech.backend.exceptions.UnprocessableEntityException;
 import com.ahntech.backend.models.MessageResponse;
 import com.ahntech.backend.repositories.UserRepository;
 import com.ahntech.backend.services.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.security.Principal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Override
+    public ResponseEntity<MessageResponse> changePassword(ChangePasswordDto request, Principal connectedUser) {
+
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+
+        // check if the current password is correct
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalStateException("Wrong password");
+        }
+        // check if the two new passwords are the same
+        if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
+            throw new IllegalStateException("Password are not the same");
+        }
+
+        // update the password
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        // save the new password
+        userRepository.save(user);
+        return ResponseEntity.ok().body(MessageResponse.builder()
+                .message(CodeResponse.RES200.getLabel())
+                .build());
     }
+
+
+
+
 
 
     @Override
