@@ -1,4 +1,6 @@
-export interface ProductModel {
+import {BaseModel} from "@/models/base.model.ts";
+
+export interface ProductModel extends BaseModel{
     title: string
     finalPrice: number
     previousPrice?: number

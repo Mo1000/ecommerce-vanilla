@@ -1,7 +1,7 @@
 package com.ahntech.backend.services.implementations;
 
 import com.ahntech.backend.dtos.ChangePasswordDto;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.enums.CodeResponse;
 import com.ahntech.backend.exceptions.BadRequestException;
@@ -12,10 +12,12 @@ import com.ahntech.backend.repositories.UserRepository;
 import com.ahntech.backend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -58,9 +60,15 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public User getUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        User user = userRepository.findByUsername(username).orElseThrow(RessourcesNotFoundException::new);
+        user.setPassword(null);
+        return user;
 
-
+    }
 
     @Override
     public User getUserById(String idUser) {
@@ -74,10 +82,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
     @Override
-    public ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser) {
+    public ResponseEntity<MessageResponse> addUser(UserDto newUser) {
         try {
             User user = new User();
             user.setAllAttributes(newUser);
@@ -93,15 +99,15 @@ public class UserServiceImpl implements UserService {
             if (e instanceof DuplicateKeyException) {
                 throw new BadRequestException("User already exist with username or email");
             }
-        throw e;
+            throw e;
         }
     }
 
 
     @Override
-    public ResponseEntity<MessageResponse> addManyUser(List<UserRegisterDto> userList) {
+    public ResponseEntity<MessageResponse> addManyUser(List<UserDto> userList) {
         if (!CollectionUtils.isEmpty(userList)) {
-            for (UserRegisterDto user : userList) {
+            for (UserDto user : userList) {
                 this.addUser(user);
             }
             return ResponseEntity.status(HttpStatus.OK).body(MessageResponse.builder()

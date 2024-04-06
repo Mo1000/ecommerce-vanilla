@@ -1,10 +1,10 @@
 export class ErrorApi {
   code: string;
-  message?: string;
+  statusCode?: number;
 
-  constructor(code: string, message?: string) {
+  constructor(code: string, statusCode?: number) {
     this.code = code;
-    this.message = message;
+    this.statusCode = statusCode;
   }
 }
 
@@ -13,7 +13,7 @@ export interface ResponseErrorAPi {
   data: string[];
   error: {
     code: string;
-    message: string;
+    statusCode: number;
   };
   meta: {
     timestamp: string;

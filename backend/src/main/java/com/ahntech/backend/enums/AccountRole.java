@@ -18,10 +18,12 @@ public enum AccountRole {
 
     public List<SimpleGrantedAuthority> getAuthorities() {
         // authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-        return getPermissions()
+        var authorities= getPermissions()
                 .stream()
-                .map(permission -> new SimpleGrantedAuthority("ROLE_".concat(permission)))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return  authorities;
     }
 
 

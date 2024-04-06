@@ -2,7 +2,7 @@ package com.ahntech.backend.services;
 
 
 import com.ahntech.backend.dtos.ChangePasswordDto;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +26,14 @@ public interface UserService {
     List<User> getAllUser();
 
 
+     User getUser();
 
      ResponseEntity<MessageResponse> changePassword(ChangePasswordDto request, Principal connectedUser);
 
-    ResponseEntity<MessageResponse> addUser(UserRegisterDto newUser);
+    ResponseEntity<MessageResponse> addUser(UserDto newUser);
 
 
-    ResponseEntity<MessageResponse> addManyUser(List<UserRegisterDto> userList);
+    ResponseEntity<MessageResponse> addManyUser(List<UserDto> userList);
 
 
 

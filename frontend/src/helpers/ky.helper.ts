@@ -2,6 +2,8 @@ import ky, {Options} from 'ky';
 import {transformeResponseApi} from '@/utils/transformeResponseApi';
 import {FormattedResponse} from "@/models/api-response.model.ts";
 import {ResponseErrorAPi} from "@/models/handleErrorApi/error-api.model.ts";
+import {USER_JWT_TOKEN_COOKIE_NAME} from "@/constants";
+import {getCookieValue} from "@/utils/storage/manageCookies.ts";
 
 
 const API_BASE_URL = import.meta.env.VITE_PUBLIC_API_BASE_URL;
@@ -11,14 +13,14 @@ function getCustomFetch() {
     return ky.extend({
         prefixUrl: API_BASE_URL,
         timeout: 60000,
-        // hooks: {
-        //     beforeRequest: [
-        //         (request) => {
-        //             const token = getCookieValue(USER_JWT_TOKEN_COOKIE_NAME || 'token');
-        //             if (token) request.headers.set('Authorization', `Bearer ${token}`);
-        //         },
-        //     ],
-        // },
+        hooks: {
+            beforeRequest: [
+                (request) => {
+                    const token = getCookieValue(USER_JWT_TOKEN_COOKIE_NAME );
+                    if (token) request.headers.set('Authorization', `Bearer ${token}`);
+                },
+            ],
+        },
     });
 }
 

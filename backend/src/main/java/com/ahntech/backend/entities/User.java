@@ -1,14 +1,16 @@
 package com.ahntech.backend.entities;
 
 import com.ahntech.backend.interfaces.user.UserInformations;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.enums.AccountRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -18,9 +20,10 @@ import java.util.Objects;
 @AllArgsConstructor
 @Document(collection = "user")
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class User extends Base implements UserInformations {
+public class User  implements UserInformations {
 
-
+    @Id
+    String id;
     @Indexed(unique = true)
     String username;
     @Indexed(unique = true)
@@ -30,9 +33,13 @@ public class User extends Base implements UserInformations {
     String avatar;
     String address;
     String phone;
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 
-    public void setAllAttributes(UserRegisterDto newUser) {
+    public void setAllAttributes(UserDto newUser) {
         this.username = newUser.getUsername();
         this.email = newUser.getEmail();
         this.phone = newUser.getPhone();

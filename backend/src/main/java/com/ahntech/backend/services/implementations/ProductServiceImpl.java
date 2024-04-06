@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -73,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<MessageResponse> addProduct(ProductDto newProduct) {
         try {
             Product product = new Product();
+
             product.setAllAttributes(newProduct);
             String id = productRepository.save(product).getId();
             if (id == null) {

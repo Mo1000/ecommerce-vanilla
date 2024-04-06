@@ -1,7 +1,7 @@
 package com.ahntech.backend.controllers;
 
 import com.ahntech.backend.dtos.UserLoginDto;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.models.AuthenticationResponse;
 import com.ahntech.backend.services.AuthService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class AuthController {
     private  final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody UserRegisterDto newUser){
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody UserDto newUser){
         return ResponseEntity.ok(authService.register(newUser));
     }
 

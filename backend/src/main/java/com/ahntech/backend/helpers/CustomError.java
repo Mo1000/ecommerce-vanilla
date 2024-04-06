@@ -44,15 +44,21 @@ public class CustomError {
         return meta;
     }
 
+
     public Map<String, Object> getErrorAttributes() {
-        Map<String, Object> errors = new HashMap<>();
-        errors.put("statusCode", this.httpStatus.value());
-        errors.put("code", this.httpStatus.getReasonPhrase());
-        errors.put("message", this.message);
+        Map<String, Object> data = new HashMap<>();
+
+        //handle error data
+        Map<String,Object> error = new HashMap<>();
+        error.put("statusCode", this.httpStatus.value());
+        error.put("code", this.httpStatus.getReasonPhrase());
+
+        data.put("error", error);
+        data.put("message", this.message);
         if (this.dataError != null) {
-            errors.put("data", this.dataError);
+            data.put("data", this.dataError);
         }
-        errors.put("meta", getMetaData()); // Extract path from the request
-        return errors;
+        data.put("meta", getMetaData()); // Extract path from the request
+        return data;
     }
 }

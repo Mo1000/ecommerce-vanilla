@@ -39,16 +39,16 @@ function render(products: ProductModel[], sectionParam: string) {
 }
 
 // Function to check if all entries in the object are not empty
-function areAllEntriesNotEmpty(obj: any) {
-    // Iterate over each property in the object
-    for (const key in obj) {
-        // Check if the property value is an array and if it is not empty
-        if (Array.isArray(obj[key]) && obj[key].length === 0) {
-            return false; // If any array is empty, return false
-        }
-    }
-    return true; // If all arrays are not empty, return true
-}
+// function areAllEntriesNotEmpty(obj: any) {
+//     // Iterate over each property in the object
+//     for (const key in obj) {
+//         // Check if the property value is an array and if it is not empty
+//         if (Array.isArray(obj[key]) && obj[key].length === 0) {
+//             return false; // If any array is empty, return false
+//         }
+//     }
+//     return true; // If all arrays are not empty, return true
+// }
 
 // Function to check if at least one entry in the object is not empty
 function isAtLeastOneEntryNotEmpty(obj: any) {
@@ -109,7 +109,7 @@ function handleFilter(data: ProductModel[]) {
             return value.colors.some((color) => product.colorList?.includes(color)) || value.sizes.some((size) => product.sizeList?.includes(size))
         })
 
-    
+
 
         if (dataFiltered.length === 0 && isAtLeastOneEntryNotEmpty(value)) {
             const elementNotFound = createElement("div", {

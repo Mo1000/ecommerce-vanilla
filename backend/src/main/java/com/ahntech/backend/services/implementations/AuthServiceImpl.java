@@ -2,7 +2,7 @@ package com.ahntech.backend.services.implementations;
 
 import com.ahntech.backend.models.AuthenticationResponse;
 import com.ahntech.backend.dtos.UserLoginDto;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.enums.AccountRole;
 import com.ahntech.backend.repositories.UserRepository;
@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthenticationResponse register(UserRegisterDto newUser) {
+    public AuthenticationResponse register(UserDto newUser) {
         var user = User.builder()
                 .username(newUser.getUsername())
                 .address(newUser.getAddress())
@@ -52,7 +52,6 @@ public class AuthServiceImpl implements AuthService {
         ));
         var userEntity = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         var jwtToken = jwtService.generateToken(userEntity);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

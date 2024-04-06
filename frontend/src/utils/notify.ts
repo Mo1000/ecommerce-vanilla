@@ -1,9 +1,9 @@
 import Toastify from "toastify-js";
 
-interface ToastifyModel extends Omit<Toastify.Options, "text"> {
+interface NotifyModel extends Omit<Toastify.Options, "text"> {
    readonly type?: "success" | "error" | "info" | "warning"|"default";
 }
-export function toastify(text: string, options?: ToastifyModel) {
+export function notify(text: string, options?: NotifyModel) {
 
     let backgroundColor=undefined
 
@@ -13,7 +13,7 @@ export function toastify(text: string, options?: ToastifyModel) {
                backgroundColor="#2b713c"
                 break;
             case "error":
-                backgroundColor= "#86343b"
+                backgroundColor= "#9d4a51"
                 break;
             case "info":
               backgroundColor= "#1c5d68"
@@ -29,7 +29,7 @@ export function toastify(text: string, options?: ToastifyModel) {
     return Toastify({
         text: text,
         backgroundColor,
-        duration: 5000,
+        duration: 3000,
         newWindow: true,
         close: true,
         gravity: "bottom", // `top` or `bottom`

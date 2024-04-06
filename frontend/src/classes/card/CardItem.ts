@@ -83,7 +83,9 @@ export class CardItem {
                 heartIcon.setAttribute('fill', 'red')
                 heartIconContainer.replaceChildren(heartIcon)
             } else {
-                heartIcon = createSVGElement(heartIconOutline);
+                heartIcon = createSVGElement(heartIconOutline,{
+                    class:"w-6 h-6"
+                });
                 heartIcon.setAttribute('color', 'black')
                 heartIconContainer.replaceChildren(heartIcon)
             }

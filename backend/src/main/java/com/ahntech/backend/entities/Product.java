@@ -5,6 +5,7 @@ import com.ahntech.backend.enums.SectionProduct;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "product")
@@ -30,7 +32,10 @@ public class Product extends Base {
     List<SectionProduct> sections;
 
 
+
     public void setAllAttributes(ProductDto newProduct) {
+        // Retrieve currently authenticated username (assuming Spring Security is used)
+         String createdBy = SecurityContextHolder.getContext().getAuthentication().getName();
         this.title = newProduct.getTitle();
         this.finalPrice = newProduct.getFinalPrice();
         this.previousPrice = newProduct.getPreviousPrice();
@@ -40,6 +45,7 @@ public class Product extends Base {
         this.colorList = newProduct.getColorList();
         this.sizeList = newProduct.getSizeList();
         this.sections = newProduct.getSections();
+        this.setCreatedBy(createdBy);
     }
 
 

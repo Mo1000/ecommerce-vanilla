@@ -10,6 +10,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-   // @Secured("ROLE_ADMIN")
+  // @Secured("ROLE_ADMIN")
     @GetMapping
     List<Product> getProducts() {
         return productService.getAllProduct();

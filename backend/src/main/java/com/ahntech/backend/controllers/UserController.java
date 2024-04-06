@@ -1,7 +1,7 @@
 package com.ahntech.backend.controllers;
 
 import com.ahntech.backend.dtos.ChangePasswordDto;
-import com.ahntech.backend.dtos.UserRegisterDto;
+import com.ahntech.backend.dtos.UserDto;
 import com.ahntech.backend.entities.User;
 import com.ahntech.backend.models.MessageResponse;
 import com.ahntech.backend.services.UserService;
@@ -37,9 +37,14 @@ public class UserController {
 
     }
 
-    @GetMapping
+    @GetMapping("/allUsers")
     List<User> getUsers() {
         return userService.getAllUser();
+    }
+
+    @GetMapping
+    User getUser() {
+        return userService.getUser();
     }
 
     @GetMapping(path = "/{userId}")
@@ -49,12 +54,12 @@ public class UserController {
 
 
     @PostMapping
-    ResponseEntity<MessageResponse> addUser(@Valid @RequestBody UserRegisterDto newUser) {
+    ResponseEntity<MessageResponse> addUser(@Valid @RequestBody UserDto newUser) {
         return this.userService.addUser(newUser);
     }
 
     @PostMapping("/many")
-    HttpEntity<MessageResponse> addManyUser(@RequestBody List<@Valid UserRegisterDto> userList) {
+    HttpEntity<MessageResponse> addManyUser(@RequestBody List<@Valid UserDto> userList) {
 
         return this.userService.addManyUser(userList);
     }

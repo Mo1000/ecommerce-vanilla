@@ -7,8 +7,10 @@ import lombok.experimental.FieldDefaults;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRegisterDto {
+public class UserDto {
     @NotNull(message = "username is required")
     @NotBlank(message = "username must not be blank")
     @Size(min = 3, message = "username must be at least 3 characters")

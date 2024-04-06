@@ -1,11 +1,23 @@
 import {createElement} from "@/functions/dom.ts";
+import {UserService} from "@/services/user.service.ts";
+import {signal} from "@preact/signals-core";
+import {UserModel} from "@/models/user.model.ts";
+import {getCookieValue} from "@/utils/storage/manageCookies.ts";
+import {USER_COLOR_COOKIE_NAME} from "@/constants";
+import {createAvatar} from "@dicebear/core";
+import {identicon} from "@dicebear/collection";
+import {randomColor} from "@/utils/randomColor.ts";
+import {createSVGElement} from "@/utils";
+import {FiShoppingCart, heartIconOutline} from "@/constants/icons.ts";
+
 
 const addNav = async () => {
 
-  const nav = createElement("nav", {
-    class:"bg-white shadow sticky z-50 w-full"
-  })
-  nav.innerHTML=`   
+
+    const nav = createElement("nav", {
+        class: "bg-white shadow sticky z-50 w-full"
+    })
+    nav.innerHTML = `   
    <div class='mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 xl:px-28'>
             <div class="-ml-2 mr-2 flex items-center md:hidden">
                 <button aria-controls="mobile-menu" aria-expanded="false"
@@ -56,52 +68,98 @@ const addNav = async () => {
                            placeholder="What are you looking for?" type="search">
                 </label>
             </form>
+            
+  
         </div>
 `
-  const body = document.querySelector("body");
-  body?.prepend(nav);
+
+   try {
+       const res = await UserService.getUser()
+       const user = signal<UserModel | undefined>(res.data || undefined)
+       const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
+
+       //handle avatar
+       const avatar = createAvatar(identicon, {
+           seed: user.value?.username || 'ecom',
+           backgroundColor: [userColor || randomColor()],
+           radius: 50,
+       }).toDataUriSync();
+
+
+       const div=createElement("div",{
+           class:"px-3 flex gap-6 items-center"
+       })
+
+       const imgAvatar=createElement("img",{
+           alt:"avatar-user",
+           width:36,
+           height:36,
+           class:"h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer",
+           src:avatar
+       })
+       const attr={
+           class:"w-7 h-7 cursor-pointer"
+       }
+       const heartSvg=createSVGElement(heartIconOutline,attr)
+       const svgShopping=createSVGElement(FiShoppingCart,attr)
+
+
+       div.appendChild(heartSvg)
+       div.appendChild(svgShopping)
+       div.appendChild(imgAvatar)
+       const form=nav.querySelector("#nav-search") as HTMLFormElement
+
+       form.insertAdjacentElement("afterend",div)
+   }
+   catch (e){
+       console.log("error to get user")
+   }
+
+    const body = document.querySelector("body");
+    body?.prepend(nav);
 };
 
 function handleSearchInNav() {
-  const searchForm = document.getElementById("nav-search") as HTMLFormElement;
-  searchForm.addEventListener("submit", (e) => {
-    e.preventDefault()
-    const formData = new FormData(searchForm);
-    const data = Object.fromEntries(formData);
-    console.log(data)
-  });
+    const searchForm = document.getElementById("nav-search") as HTMLFormElement;
+    searchForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const formData = new FormData(searchForm);
+        const data = Object.fromEntries(formData);
+        console.log(data)
+    });
 }
 
 function handleActiveLink() {
-  const div = document.querySelector("#routes-link");
-  Array.from(div?.children as HTMLCollection).forEach((link) => {
-    const pathname = window.location.pathname.slice(1);
-    if (pathname === "") {
-      if (link.textContent === "Home") {
-        link.classList.add("border-solid");
-        link.classList.add("border-0");
-        link.classList.add("border-b-2");
-        link.classList.add("border-indigo-500");
-        link.classList.replace("text-gray-500", "text-gray-900");
-        return;
-      }
-    } else if (link.id.includes(pathname)) {
-      link.classList.add("border-solid");
-      link.classList.add("border-0");
-      link.classList.add("border-b-2");
-      link.classList.add("border-indigo-500");
-      link.classList.replace("text-gray-500", "text-gray-900");
-      return;
-    } else {
-      link.classList.remove("border-solid");
-      link.classList.remove("border-0");
-      link.classList.remove("border-b-2");
-      link.classList.remove("border-indigo-500");
-      link.classList.replace("text-gray-900", "text-gray-500");
-      return;
-    }
-  });
+    const div = document.querySelector("#routes-link");
+    Array.from(div?.children as HTMLCollection).forEach((link) => {
+        const pathname = window.location.pathname.slice(1);
+        if (pathname === "") {
+            if (link.textContent === "Home") {
+                link.classList.add("border-solid");
+                link.classList.add("border-0");
+                link.classList.add("border-b-2");
+                link.classList.add("border-indigo-500");
+                link.classList.replace("text-gray-500", "text-gray-900");
+                return;
+            }
+        } else if (link.id.includes(pathname)) {
+            link.classList.add("border-solid");
+            link.classList.add("border-0");
+            link.classList.add("border-b-2");
+            link.classList.add("border-indigo-500");
+            link.classList.replace("text-gray-500", "text-gray-900");
+            return;
+        } else {
+            link.classList.remove("border-solid");
+            link.classList.remove("border-0");
+            link.classList.remove("border-b-2");
+            link.classList.remove("border-indigo-500");
+            link.classList.replace("text-gray-900", "text-gray-500");
+            return;
+        }
+    });
 }
+
 await addNav();
 handleActiveLink();
 handleSearchInNav();
