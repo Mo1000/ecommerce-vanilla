@@ -3,7 +3,7 @@ import {UserService} from "@/services/user.service.ts";
 import {signal} from "@preact/signals-core";
 import {UserModel} from "@/models/user.model.ts";
 import {getCookieValue, removeCookie} from "@/utils/storage/manageCookies.ts";
-import {USER_COLOR_COOKIE_NAME, USER_JWT_TOKEN_COOKIE_NAME} from "@/constants";
+import {USER_COLOR_COOKIE_NAME, USER_JWT_TOKEN_COOKIE_NAME,} from "@/constants";
 import {createAvatar} from "@dicebear/core";
 import {identicon} from "@dicebear/collection";
 import {randomColor} from "@/utils/randomColor.ts";
@@ -11,14 +11,13 @@ import {createSVGElement} from "@/utils";
 import {FiShoppingCart, heartIconOutline} from "@/constants/icons.ts";
 import {notify} from "@/utils/notify.ts";
 
+const pathname = window.location.pathname.slice(1);
 
 const addNav = async () => {
-
-
-    const nav = createElement("nav", {
-        class: "bg-white shadow sticky z-50 w-full"
-    })
-    nav.innerHTML = `   
+  const nav = createElement("nav", {
+    class: "bg-white shadow sticky z-50 w-full top-0",
+  });
+  nav.innerHTML = `   
    <div class='mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 xl:px-28'>
             <div class="-ml-2 mr-2 flex items-center md:hidden">
                 <button aria-controls="mobile-menu" aria-expanded="false"
@@ -66,146 +65,157 @@ const addNav = async () => {
       
       </div>
         </div>
-`
+`;
 
-
-// Manage user connected
-    try {
-        const res = await UserService.getUser()
-        const user = signal<UserModel | undefined>(res.data || undefined)
-        const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
-
-        //handle avatar
-        const avatar = createAvatar(identicon, {
-            seed: user.value?.username || 'ecom',
-            backgroundColor: [userColor || randomColor()],
-            radius: 50,
-        }).toDataUriSync();
-
-
-        const divUserConnected = createElement("div", {
-            class: "px-3 flex gap-6 items-center"
-        })
-
-
-        //handle svg
-        const attr = {
-            class: "w-7 h-7 cursor-pointer"
-        }
-        const heartSvg = createSVGElement(heartIconOutline, attr)
-        const svgShopping = createSVGElement(FiShoppingCart, attr)
-
-        //handle avatar img and dropdown option
-        const containerImgAvatar = createElement("div", {
-            class: "relative"
-        })
-
-        const imgAvatar = createElement("img", {
-            alt: "avatar-user",
-            width: 36,
-            height: 36,
-            class: "h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer",
-            src: avatar
-        })
-        const dropdown = createElement("div", {
-            class: "absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-            role: "menu",
-            "aria-orientation": "vertical",
-            "aria-labelledby": "user-menu-button",
-            tabindex: "-1"
-        })
-        dropdown.innerHTML = `
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" >Sign out</a>        
-        `
-
-        const logoutAnchor = dropdown.querySelector("#user-menu-item-2") as HTMLAnchorElement;
-        logoutAnchor.addEventListener("click", logout)
-
-        // handle dropdown
-        const showDropdown = signal<boolean>(false)
-        imgAvatar.addEventListener("click", () => {
-            showDropdown.value = !showDropdown.value
-        })
-
-        showDropdown.subscribe((value) => {
-            if (value) {
-                dropdown.classList.remove("hidden")
-            } else {
-                dropdown.classList.add("hidden")
-            }
-        })
-
-
-        //append element to container Avatar
-        containerImgAvatar.appendChild(imgAvatar);
-        containerImgAvatar.appendChild(dropdown);
-
-
-        divUserConnected.appendChild(heartSvg)
-        divUserConnected.appendChild(svgShopping)
-        divUserConnected.appendChild(containerImgAvatar)
-        const form = nav.querySelector("#nav-search") as HTMLFormElement
-
-        form.insertAdjacentElement("afterend", divUserConnected)
-    } catch (e) {
-        console.log("error to get user")
+  // Manage user connected
+  try {
+    const res = await UserService.getUser();
+    if (pathname === "login" || pathname === "register") {
+      window.location.href = "/";
     }
 
-    const body = document.querySelector("body") as HTMLBodyElement;
-    body.prepend(nav);
+    // Hidden login section
+    const loginLink = nav.querySelector("#login-link") as HTMLAnchorElement;
+    loginLink.className = "hidden";
+
+    const user = signal<UserModel | undefined>(res.data || undefined);
+    const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
+
+    //handle avatar
+    const avatar = createAvatar(identicon, {
+      seed: user.value?.username || "Ecommerce",
+      backgroundColor: [userColor || randomColor()],
+      radius: 50,
+    }).toDataUriSync();
+
+    const divUserConnected = createElement("div", {
+      class: "px-3 flex gap-6 items-center",
+    });
+
+    //handle svg
+    const attr = {
+      class: "w-7 h-7 cursor-pointer",
+    };
+    const heartSvg = createSVGElement(heartIconOutline, attr);
+    const svgShopping = createSVGElement(FiShoppingCart, attr);
+
+    //handle avatar img and dropdown option
+    const containerImgAvatar = createElement("div", {
+      class: "relative",
+    });
+
+    const imgAvatar = createElement("img", {
+      alt: "avatar-user",
+      width: 36,
+      height: 36,
+      class:
+        "h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer",
+      src: avatar,
+    });
+
+    const dropdown = createElement("div", {
+      class:
+        "absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+      role: "menu",
+      "aria-orientation": "vertical",
+      "aria-labelledby": "user-menu-button",
+      tabindex: "-1",
+    });
+    dropdown.innerHTML = `
+            <a href="/account" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Manage My Account</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">My Order</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" >My Cancellations</a>        
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-3" >My Reviews</a>        
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-4" >Logout</a>        
+        `;
+
+    const logoutAnchor = dropdown.querySelector(
+      "#user-menu-item-4"
+    ) as HTMLAnchorElement;
+
+    logoutAnchor.addEventListener("click", logout);
+
+    // handle dropdown
+    const showDropdown = signal<boolean>(false);
+
+    imgAvatar.addEventListener("click", () => {
+      showDropdown.value = !showDropdown.value;
+    });
+
+    showDropdown.subscribe((value) => {
+      if (value) {
+        dropdown.classList.remove("hidden");
+      } else {
+        dropdown.classList.add("hidden");
+      }
+    });
+
+    //append element to container Avatar
+    containerImgAvatar.appendChild(imgAvatar);
+    containerImgAvatar.appendChild(dropdown);
+
+    divUserConnected.appendChild(heartSvg);
+    divUserConnected.appendChild(svgShopping);
+    divUserConnected.appendChild(containerImgAvatar);
+    const form = nav.querySelector("#nav-search") as HTMLFormElement;
+
+    form.insertAdjacentElement("afterend", divUserConnected);
+  } catch (e) {
+    console.log("error to get user");
+  }
+
+  const body = document.querySelector("body") as HTMLBodyElement;
+  body.prepend(nav);
 };
 
 function handleSearchInNav() {
-    const searchForm = document.getElementById("nav-search") as HTMLFormElement;
-    searchForm.addEventListener("submit", (e) => {
-        e.preventDefault()
-        const formData = new FormData(searchForm);
-        const data = Object.fromEntries(formData);
-        console.log(data)
-    });
+  const searchForm = document.getElementById("nav-search") as HTMLFormElement;
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(searchForm);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+  });
 }
 
 function handleActiveLink() {
-    const div = document.querySelector("#routes-link");
-    Array.from(div?.children as HTMLCollection).forEach((link) => {
-        const pathname = window.location.pathname.slice(1);
-        if (pathname === "") {
-            if (link.textContent === "Home") {
-                link.classList.add("border-solid");
-                link.classList.add("border-0");
-                link.classList.add("border-b-2");
-                link.classList.add("border-indigo-500");
-                link.classList.replace("text-gray-500", "text-gray-900");
-                return;
-            }
-        } else if (link.id.includes(pathname)) {
-            link.classList.add("border-solid");
-            link.classList.add("border-0");
-            link.classList.add("border-b-2");
-            link.classList.add("border-indigo-500");
-            link.classList.replace("text-gray-500", "text-gray-900");
-            return;
-        } else {
-            link.classList.remove("border-solid");
-            link.classList.remove("border-0");
-            link.classList.remove("border-b-2");
-            link.classList.remove("border-indigo-500");
-            link.classList.replace("text-gray-900", "text-gray-500");
-            return;
-        }
-    });
+  const div = document.querySelector("#routes-link");
+  Array.from(div?.children as HTMLCollection).forEach((link) => {
+    if (pathname === "") {
+      if (link.textContent === "Home") {
+        link.classList.add("border-solid");
+        link.classList.add("border-0");
+        link.classList.add("border-b-2");
+        link.classList.add("border-indigo-500");
+        link.classList.replace("text-gray-500", "text-gray-900");
+        return;
+      }
+    } else if (link.id.includes(pathname)) {
+      link.classList.add("border-solid");
+      link.classList.add("border-0");
+      link.classList.add("border-b-2");
+      link.classList.add("border-indigo-500");
+      link.classList.replace("text-gray-500", "text-gray-900");
+      return;
+    } else {
+      link.classList.remove("border-solid");
+      link.classList.remove("border-0");
+      link.classList.remove("border-b-2");
+      link.classList.remove("border-indigo-500");
+      link.classList.replace("text-gray-900", "text-gray-500");
+      return;
+    }
+  });
 }
 
 const logout = (e: MouseEvent) => {
-    e.preventDefault()
-    removeCookie(USER_JWT_TOKEN_COOKIE_NAME)
-    notify("You are disconnected", {
-        type: "success"
-    })
-    window.location.href = "/"
-}
+  e.preventDefault();
+  removeCookie(USER_JWT_TOKEN_COOKIE_NAME);
+  notify("You are disconnected", {
+    type: "success",
+  });
+  window.location.href = "/";
+};
 
 await addNav();
 handleActiveLink();
