@@ -2,13 +2,14 @@ import {createElement} from "@/functions/dom.ts";
 import {UserService} from "@/services/user.service.ts";
 import {signal} from "@preact/signals-core";
 import {UserModel} from "@/models/user.model.ts";
-import {getCookieValue} from "@/utils/storage/manageCookies.ts";
-import {USER_COLOR_COOKIE_NAME} from "@/constants";
+import {getCookieValue, removeCookie} from "@/utils/storage/manageCookies.ts";
+import {USER_COLOR_COOKIE_NAME, USER_JWT_TOKEN_COOKIE_NAME} from "@/constants";
 import {createAvatar} from "@dicebear/core";
 import {identicon} from "@dicebear/collection";
 import {randomColor} from "@/utils/randomColor.ts";
 import {createSVGElement} from "@/utils";
 import {FiShoppingCart, heartIconOutline} from "@/constants/icons.ts";
+import {notify} from "@/utils/notify.ts";
 
 
 const addNav = async () => {
@@ -49,19 +50,12 @@ const addNav = async () => {
                    id="about-link"
                 >About</a>
                 <a class="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                   href="/register"
-                   id="register-link"
-                >Sign Up</a>
+                   href="/login"
+                   id="login-link"
+                >Log In</a>
             </div>
 
-            <form class="relative" id="nav-search" method="POST">
-                <!--            <div class="pointer-events-none absolute   inset-y-0 right-0 flex items-center pr-3">-->
-                <!--                <svg aria-hidden="true" class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">-->
-                <!--                    <path clip-rule="evenodd"-->
-                <!--                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"-->
-                <!--                          fill-rule="evenodd"/>-->
-                <!--                </svg>-->
-                <!--            </div>-->
+            <form class="relative" id="nav-search" method="POST">          
                 <label for="nav-input">
                     <input class="w-64 p-3 bg-gray-100 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
                            id="nav-input" name="inputNav"
@@ -69,54 +63,98 @@ const addNav = async () => {
                 </label>
             </form>
             
-  
+      
+      </div>
         </div>
 `
 
-   try {
-       const res = await UserService.getUser()
-       const user = signal<UserModel | undefined>(res.data || undefined)
-       const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
 
-       //handle avatar
-       const avatar = createAvatar(identicon, {
-           seed: user.value?.username || 'ecom',
-           backgroundColor: [userColor || randomColor()],
-           radius: 50,
-       }).toDataUriSync();
+// Manage user connected
+    try {
+        const res = await UserService.getUser()
+        const user = signal<UserModel | undefined>(res.data || undefined)
+        const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
 
-
-       const div=createElement("div",{
-           class:"px-3 flex gap-6 items-center"
-       })
-
-       const imgAvatar=createElement("img",{
-           alt:"avatar-user",
-           width:36,
-           height:36,
-           class:"h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer",
-           src:avatar
-       })
-       const attr={
-           class:"w-7 h-7 cursor-pointer"
-       }
-       const heartSvg=createSVGElement(heartIconOutline,attr)
-       const svgShopping=createSVGElement(FiShoppingCart,attr)
+        //handle avatar
+        const avatar = createAvatar(identicon, {
+            seed: user.value?.username || 'ecom',
+            backgroundColor: [userColor || randomColor()],
+            radius: 50,
+        }).toDataUriSync();
 
 
-       div.appendChild(heartSvg)
-       div.appendChild(svgShopping)
-       div.appendChild(imgAvatar)
-       const form=nav.querySelector("#nav-search") as HTMLFormElement
+        const divUserConnected = createElement("div", {
+            class: "px-3 flex gap-6 items-center"
+        })
 
-       form.insertAdjacentElement("afterend",div)
-   }
-   catch (e){
-       console.log("error to get user")
-   }
 
-    const body = document.querySelector("body");
-    body?.prepend(nav);
+        //handle svg
+        const attr = {
+            class: "w-7 h-7 cursor-pointer"
+        }
+        const heartSvg = createSVGElement(heartIconOutline, attr)
+        const svgShopping = createSVGElement(FiShoppingCart, attr)
+
+        //handle avatar img and dropdown option
+        const containerImgAvatar = createElement("div", {
+            class: "relative"
+        })
+
+        const imgAvatar = createElement("img", {
+            alt: "avatar-user",
+            width: 36,
+            height: 36,
+            class: "h-8 w-8 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer",
+            src: avatar
+        })
+        const dropdown = createElement("div", {
+            class: "absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+            role: "menu",
+            "aria-orientation": "vertical",
+            "aria-labelledby": "user-menu-button",
+            tabindex: "-1"
+        })
+        dropdown.innerHTML = `
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" >Sign out</a>        
+        `
+
+        const logoutAnchor = dropdown.querySelector("#user-menu-item-2") as HTMLAnchorElement;
+        logoutAnchor.addEventListener("click", logout)
+
+        // handle dropdown
+        const showDropdown = signal<boolean>(false)
+        imgAvatar.addEventListener("click", () => {
+            showDropdown.value = !showDropdown.value
+        })
+
+        showDropdown.subscribe((value) => {
+            if (value) {
+                dropdown.classList.remove("hidden")
+            } else {
+                dropdown.classList.add("hidden")
+            }
+        })
+
+
+        //append element to container Avatar
+        containerImgAvatar.appendChild(imgAvatar);
+        containerImgAvatar.appendChild(dropdown);
+
+
+        divUserConnected.appendChild(heartSvg)
+        divUserConnected.appendChild(svgShopping)
+        divUserConnected.appendChild(containerImgAvatar)
+        const form = nav.querySelector("#nav-search") as HTMLFormElement
+
+        form.insertAdjacentElement("afterend", divUserConnected)
+    } catch (e) {
+        console.log("error to get user")
+    }
+
+    const body = document.querySelector("body") as HTMLBodyElement;
+    body.prepend(nav);
 };
 
 function handleSearchInNav() {
@@ -158,6 +196,15 @@ function handleActiveLink() {
             return;
         }
     });
+}
+
+const logout = (e: MouseEvent) => {
+    e.preventDefault()
+    removeCookie(USER_JWT_TOKEN_COOKIE_NAME)
+    notify("You are disconnected", {
+        type: "success"
+    })
+    window.location.href = "/"
 }
 
 await addNav();
