@@ -51,14 +51,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findBySection(List<String> sections, Integer limit) {
-
         if (!CollectionUtils.isEmpty(sections)) {
             List<Product> productList = new ArrayList<>();
             for (String section : sections) {
                 Query query = new Query(Criteria.where("sections").is(section));
-                productList.addAll(mongoOperations.find(query, Product.class, COLLECTION_NAME));
+
+                List<Product> sectionProductList = mongoOperations.find(query, Product.class, COLLECTION_NAME);
+                if (!CollectionUtils.isEmpty(sectionProductList)){
+                    productList.addAll(mongoOperations.find(query, Product.class, COLLECTION_NAME));
+                }
             }
-            return (limit != null &&  limit != 0 )  ?  productList.subList(0, limit) : productList;
+            return (limit != null &&  limit != 0 && !CollectionUtils.isEmpty(productList) )  ?  productList.subList(0, limit) : productList;
         } else
             throw new BadRequestException("List of section is empty");
 

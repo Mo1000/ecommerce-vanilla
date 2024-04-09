@@ -4,6 +4,7 @@ import com.ahntech.backend.dtos.ProductDto;
 import com.ahntech.backend.enums.SectionProduct;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -11,8 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
 import java.util.Objects;
 
-@Setter
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +21,7 @@ import java.util.Objects;
 public class Product extends Base {
 
 
+    @Indexed(unique = true)
     String title;
     Double finalPrice;
     Double previousPrice; // Use Double for optional fields

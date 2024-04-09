@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 @FieldDefaults(level = AccessLevel.PUBLIC)
-//@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('USER')")
 public class ProductController {
 
 
