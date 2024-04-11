@@ -1,18 +1,15 @@
-import { createElement } from "@/functions/dom.ts";
-import { UserService } from "@/services/user.service.ts";
-import { signal } from "@preact/signals-core";
-import { UserModel } from "@/models/user.model.ts";
-import { getCookieValue, removeCookie } from "@/utils/storage/manageCookies.ts";
-import {
-  USER_COLOR_COOKIE_NAME,
-  USER_JWT_TOKEN_COOKIE_NAME,
-} from "@/constants";
-import { createAvatar } from "@dicebear/core";
-import { identicon } from "@dicebear/collection";
-import { randomColor } from "@/utils/randomColor.ts";
-import { createSVGElement } from "@/utils";
-import { FiShoppingCart, heartIconOutline } from "@/constants/icons.ts";
-import { notify } from "@/utils/notify.ts";
+import {createElement} from "@/functions/dom.ts";
+import {UserService} from "@/services/user.service.ts";
+import {signal} from "@preact/signals-core";
+import {UserModel} from "@/models/user.model.ts";
+import {getCookieValue, removeCookie} from "@/utils/storage/manageCookies.ts";
+import {USER_COLOR_COOKIE_NAME, USER_JWT_TOKEN_COOKIE_NAME,} from "@/constants";
+import {createAvatar} from "@dicebear/core";
+import {identicon} from "@dicebear/collection";
+import {randomColor} from "@/utils/randomColor.ts";
+import {createSVGElement} from "@/utils";
+import {FiShoppingCart, heartIconOutline} from "@/constants/icons.ts";
+import {notify} from "@/utils/notify.ts";
 
 const pathname = window.location.pathname.slice(1);
 
@@ -84,10 +81,11 @@ const addNav = async () => {
     const user = signal<UserModel | undefined>(res.data || undefined);
     const userColor = getCookieValue(USER_COLOR_COOKIE_NAME);
 
+
     //handle avatar
     const avatar = createAvatar(identicon, {
       seed: user.value?.username || "Ecommerce",
-      backgroundColor: [userColor || randomColor()],
+      backgroundColor: ["gradientLinear","solid",userColor || randomColor()],
       radius: 50,
     }).toDataUriSync();
 
@@ -145,6 +143,7 @@ const addNav = async () => {
       showDropdown.value = !showDropdown.value;
     });
 
+
     showDropdown.subscribe((value) => {
       if (value) {
         dropdown.classList.remove("hidden");
@@ -152,6 +151,7 @@ const addNav = async () => {
         dropdown.classList.add("hidden");
       }
     });
+
 
     //append element to container Avatar
     containerImgAvatar.appendChild(imgAvatar);
